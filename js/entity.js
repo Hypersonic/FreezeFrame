@@ -32,9 +32,14 @@ GAME.Entity = (function() {
     function move(ent, dx, dy) {
         ent.xvel += dx;
         ent.yvel += dy;
+        console.log(ent.xvel + " " + ent.yvel);
         var currspeed = Math.sqrt(Math.pow(ent.xvel,2), Math.pow(ent.yvel,2));
-        ent.xvel = (ent.xvel / currspeed) * GAME.E_MAXVEL;
-        ent.yvel = (ent.yvel / currspeed) * GAME.E_MAXVEL;
+        console.log(currspeed);
+        if (currspeed < GAME.E_MAXVEL) {
+          ent.xvel = (ent.xvel / currspeed) * GAME.E_MAXVEL;
+          ent.yvel = (ent.yvel / currspeed) * GAME.E_MAXVEL;
+        }
+        console.log(ent.xvel + " " + ent.yvel);
         return ent;
     }
 
