@@ -13,7 +13,8 @@ GAME.Entity = (function() {
             yvel : 0,
 
             angle : 0,
-            accel : 0.1,
+            accel : 1,
+            maxSpeed : 3,
 
             isPlayer : false,
 
@@ -31,16 +32,30 @@ GAME.Entity = (function() {
     }
 
     function move(ent, dx, dy) {
-        var spd = Math.sqrt(dx * dx + dy * dy);
+        var acl = Math.sqrt(dx * dx + dy * dy);
 
-        dx /= spd;
-        dy /= spd;
+        ent.xvel *= 0.9;
+        ent.yvel *= 0.9;
 
-		dx *= ent.accel;
-		dy *= ent.accel;
+		if (acl != 0) {
+        	dx /= acl;
+        	dy /= acl;
+
+			dx *= ent.accel;
+			dy *= ent.accel;
+		}
 
 		ent.xvel += dx;
 		ent.yvel += dy;
+
+        var spd = Math.sqrt(ent.xvel*ent.xvel + ent.yvel*ent.yvel);
+        if (spd > ent.maxSpeed) {
+			ent.xvel /= spd;
+			ent.yvel /= spd;
+
+			ent.xvel *= ent.maxSpeed;
+			ent.yvel *= ent.maxSpeed;
+        }
 
 		ent.x += ent.xvel;
 		ent.y += ent.yvel;
@@ -48,7 +63,7 @@ GAME.Entity = (function() {
         return ent;
     }
 
-    function dist(ent1, ent2) {
+    function dist(ent, ent2) {
         dx = ent1.x - ent2.x
         dy = ent1.y - ent2.y
         return sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
