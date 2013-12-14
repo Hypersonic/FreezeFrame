@@ -13,6 +13,7 @@ GAME.Entity = (function() {
             yvel : 0,
 
             angle : 0,
+            accel : 0.1,
 
             isPlayer : false,
 
@@ -30,16 +31,20 @@ GAME.Entity = (function() {
     }
 
     function move(ent, dx, dy) {
-        ent.xvel += dx;
-        ent.yvel += dy;
-        console.log(ent.xvel + " " + ent.yvel);
-        var currspeed = Math.sqrt(Math.pow(ent.xvel,2), Math.pow(ent.yvel,2));
-        console.log(currspeed);
-        if (currspeed < GAME.E_MAXVEL) {
-          ent.xvel = (ent.xvel / currspeed) * GAME.E_MAXVEL;
-          ent.yvel = (ent.yvel / currspeed) * GAME.E_MAXVEL;
-        }
-        console.log(ent.xvel + " " + ent.yvel);
+        var spd = Math.sqrt(dx * dx + dy * dy);
+
+        dx /= spd;
+        dy /= spd;
+
+		dx *= ent.accel;
+		dy *= ent.accel;
+
+		ent.xvel += dx;
+		ent.yvel += dy;
+
+		ent.x += ent.xvel;
+		ent.y += ent.yvel;
+
         return ent;
     }
 
