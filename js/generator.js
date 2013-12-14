@@ -1,81 +1,72 @@
 GAME.setConsts({
-    SHIT            : 1
 });
 
 GAME.Generator = (function() {
 
-    var wow = false;
+	function generate(level) {
+		var width = level.size.width,
+		    height = level.size.height,
+		    hallways = [];
 
-    function generate(level) {
-        width = level.size.width;
-        height = level.size.height;
+		for (var i = 0; i < height; i++) {
+			var row = [];
+			for (var j = 0; j < width; j++) {
+				row.push(GAME.WALL_TILE);
+			}
 
-        // generate tilemap full of wall
-        for (var i = 0; i < width; i++) {
-            if (level.tilemap.length == i)
-              level.tilemap.push([]);
-            for (var j = 0; j < height; j++) {
-              if (level.tilemap[i].length == j)
-                level.tilemap[i].push([]);
-              level.tilemap[i][j] = GAME.WALL_TILE;
-            }
-        }
+			level.tilemap.push(row);
+		}
 
-       function randomWalk(startx, starty, goalx, goaly) {
-          var cx = startx;
-          var cy = starty;
-          while (cx !== goalx || cy !== goaly) {
-            var nx = (cx + Math.round((Math.random() - .5)*2));
-            var ny = (cy + Math.round((Math.random() - .5)*2));
-            if (nx >= 0 && nx < width) cx = nx;
-            if (ny >= 0 && ny < height)cy = ny;
-            for (var i = -1; i <= 1; i++) {
-              for (var j = -1; j <= 1; j++) {
-                if (level.tilemap[cx+i] != undefined) {
-                  if (level.tilemap[cx+i][cy+j] != undefined) {
-                    level.tilemap[cx+i][cy+j] = GAME.FLOOR_TILE;
-                  }
-                }
-              }
-            }
-            //level.tilemap[cx][cy] = GAME.FLOOR_TILE;
-          }
-       }
-       // Do a few randomwalks to fill out the map
-       //randomWalk(width/2, height/2, 0, 0);
-       //randomWalk(width/2, height/2, width-1, height-1);
-       randomWalk(0,0, width/2, height/2);
+		for (var i = 0; i < 5; i++) {
+			generateHallway(level);
+		}
 
-        // put a wall around the edges
-        for (var i = 0; i < width; i++) {
-          level.tilemap[i][0] = GAME.WALL_TILE;
-          level.tilemap[i][height-1] = GAME.WALL_TILE;
-        }
-        for (var j = 0; j < height; j++) {
-          level.tilemap[0][j] = GAME.WALL_TILE;
-          level.tilemap[width-1][j] = GAME.WALL_TILE;
-        }
+		for (var i = 0; i < height; i++) {
+			level.tilemap[0][i] = GAME.WALL_TILE;
+			level.tilemap[width-1][i] = GAME.WALL_TILE;
+		}
 
-        function percentFloor(map) {
-          var walls = 0;
-          var floors = 0;
-          for (var i = 0; i < map.length; i++) {
-            for (var j = 0; j < map[i].length; j++) {
-              if (map[i][j] == GAME.WALL_TILE) walls++;
-              else floors++;
-            }
-          }
-          return floors/(walls+floors);
-        }
+		for (var i = 0; i < width; i++) {
+			level.tilemap[i][0] = GAME.WALL_TILE;
+			level.tilemap[i][height-1] = GAME.WALL_TILE;
+		}
+	}
 
-        var percent = percentFloor(level.tilemap) * 100;
-        if (percent > 50 || percent < 30)
-          return generate(level);
-        else
-          return level;
-    }
+	function generateHallway(level) {
+		var width = level.size.width,
+		    height = level.size.height,
+		    halls = 5;
 
-    return {
-        generate : generate
-    }
+		var found = false;
+		while (!found) {
+		    var y = Math.floor(Math.random() * height);
+		    var flailed = false;
+
+		    for (var i = 0; i < level.hallways.length; i++) {
+				if (Math.abs(level.hallways[i] - y) < 6) {
+					flailed = true;
+					break;
+				}
+		    }
+
+		    found = !flailed;
+		}
+		level.hallways.push(y);
+
+		for (var i = 0; i < width; i++) {
+			for (var j = -1; j <= 1; j++) {
+				if (j + y < 0 || j + y > width)
+					continue;
+				if (j + y < 0 || j + y > width)
+					continue;
+
+				level.tilemap[i][j + y] = GAME.FLOOR_TILE;
+				level.tilemap[j + y][i] = GAME.FLOOR_TILE;
+			}
+		}
+	}
+
+	return {
+		generate : generate
+	}
 })();

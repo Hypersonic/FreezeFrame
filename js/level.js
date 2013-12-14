@@ -20,7 +20,9 @@ GAME.Level = (function() {
                 x: 1,
                 y: 1,
                 angle: 0
-            }
+            },
+
+            hallways : []
         }
     }
 
