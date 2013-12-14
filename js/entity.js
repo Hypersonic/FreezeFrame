@@ -13,6 +13,8 @@ GAME.Entity = (function() {
 
             angle : 0,
 
+            isPlayer : false,
+
             shape : cloneShape(shape)
         }
     }
