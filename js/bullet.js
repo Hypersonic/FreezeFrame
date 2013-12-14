@@ -7,8 +7,8 @@ GAME.Bullet = (function() {
         return {
             x : -1,
             y : -1,
-            xvel : 0,
-            yvel : 0,
+            xvel : 10,
+            yvel : 10,
 
             angle : 0,
 
