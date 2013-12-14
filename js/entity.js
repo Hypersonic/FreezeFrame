@@ -41,7 +41,10 @@ GAME.Entity = (function() {
     }
 
     function shoot(ent) {
-        // spawn new bullet heading at angle of entity
+        bullet = GAME.Bullet.newBullet();
+        bullet.x = ent.x;
+        bullet.y = ent.y;
+        bullet.angle = ent.angle;
     }
 
 
