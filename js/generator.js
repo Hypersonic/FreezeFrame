@@ -1,8 +1,8 @@
-Game.setConsts({
+GAME.setConsts({
     SHIT            : 1
 });
 
-Game.Generator = (function() {
+GAME.Generator = (function() {
 
     var wow = false;
 

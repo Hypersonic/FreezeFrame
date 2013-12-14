@@ -1,8 +1,9 @@
-Game.setConsts({
+GAME.setConsts({
+    FLOOR_TILE      : 0,
     WALL_TILE       : 1
 });
 
-Game.Level = (function() {
+GAME.Level = (function() {
 
     var wow = false;
 
