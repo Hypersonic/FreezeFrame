@@ -45,6 +45,8 @@ GAME.Entity = (function() {
         bullet.x = ent.x;
         bullet.y = ent.y;
         bullet.angle = ent.angle;
+
+        return bullet;
     }
 
 
