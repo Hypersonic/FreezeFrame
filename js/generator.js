@@ -69,7 +69,7 @@ GAME.Generator = (function() {
         }
 
         var percent = percentFloor(level.tilemap) * 100;
-        if (percent > 60 || percent < 30)
+        if (percent > 50 || percent < 30)
           return generate(level);
         else
           return level;
