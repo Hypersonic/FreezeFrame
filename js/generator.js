@@ -7,8 +7,8 @@ GAME.Generator = (function() {
     var wow = false;
 
     function generate(level) {
-        width = level.size[width];
-        height = level.size[height];
+        width = level.size.width;
+        height = level.size.height;
 
         // generate tilemap full of floor
         for (var i = 0; i < width; i++) {
