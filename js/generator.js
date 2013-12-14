@@ -13,7 +13,7 @@ GAME.Generator = (function() {
         // generate tilemap full of floor
         for (var i = 0; i < width; i++) {
             for (var j = 0; j < height; j++) {
-                tilemap[i][j] = FLOOR_TILE;
+                level.tilemap[i][j] = FLOOR_TILE;
             }
         }
 
@@ -22,7 +22,7 @@ GAME.Generator = (function() {
         for (var i = 0; i < width; i++) {
             for (var j = 0; j < height; j++) {
                 if (Math.random > 0.9) {
-                    tilemap[i][j] = WALL_TILE;
+                    level.tilemap[i][j] = WALL_TILE;
                 }
             }
         }
