@@ -1,4 +1,5 @@
 GAME.setConsts({
+  E_MAXVEL : 10,
 	S_PLAYER : [[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5]]
 });
 
@@ -31,6 +32,9 @@ GAME.Entity = (function() {
     function move(ent, dx, dy) {
         ent.xvel += dx;
         ent.yvel += dy;
+        var currspeed = Math.sqrt(Math.pow(ent.xvel,2), Math.pow(ent.yvel,2));
+        ent.xvel = (ent.xvel / currspeed) * GAME.E_MAXVEL;
+        ent.yvel = (ent.yvel / currspeed) * GAME.E_MAXVEL;
         return ent;
     }
 
