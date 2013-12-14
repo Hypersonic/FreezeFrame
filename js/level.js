@@ -27,7 +27,7 @@ GAME.Level = (function() {
     function generateMapTiles() {
         var level = newLevel();
 
-        Game.Generator.generate(level);
+        GAME.Generator.generate(level);
 
         return level;
     }
