@@ -34,6 +34,12 @@ GAME.Entity = (function() {
         return ent;
     }
 
+    function dist(ent1, ent2) {
+        dx = ent1.x - ent2.x
+        dy = ent1.y - ent2.y
+        return sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+    }
+
     function shoot(ent) {
         // spawn new bullet heading at angle of entity
     }
@@ -41,6 +47,7 @@ GAME.Entity = (function() {
 
     return {
         move : move,
+        dist : dist,
         shoot : shoot,
         newEntity : newEntity
     }
