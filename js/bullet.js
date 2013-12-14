@@ -33,12 +33,18 @@ GAME.Bullet = (function() {
             }
         }
 
-        // look at 9 surrounding tiles
-        for (wall : walls) {
-            if (collision) {
-                theta = calculateThetaOut();
-                // undoStep(); // TODO: is this necessary?
-                bullet.path.push([bullet.x, bullet.y]);
+        // check collision with surrounding tiles
+        rx = Math.round(bullet.x)
+        ry = Math.round(bullet.y)
+        for (var i = rx - 1.5; i < 3; i++) {
+            for (var j = ry - 1.5; j < 3; j++) {
+                tilecoors = {x: i, y: j}
+                if (GAME.current_level.tilemap[i][j] == WALL_TILE && dist(bullet, tilecoors) < 1) {
+                    theta = calculateThetaOut();
+                    // change to new angle, reverse some velocity
+                    // undoStep(); // TODO: is this necessary?
+                    bullet.path.push([bullet.x, bullet.y]);
+                }
             }
         }
     }
