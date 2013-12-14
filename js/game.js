@@ -38,7 +38,6 @@ GAME.main = function() {
     // Draw
     GAME.Renderer.draw();
 
-
     // Calculate fps
     var delta = Date.now() - lastRender;
     if (GAME.frames.length == GAME.fpsSampleSize)

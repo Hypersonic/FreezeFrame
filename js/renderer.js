@@ -13,6 +13,8 @@ GAME.setConsts({
 
 GAME.setConsts({
 	ctx : GAME.canvas.getContext("2d"),
+	VIEW_WIDTH : GAME.CANVAS_WIDTH / GAME.TILE_SCALE - 2,
+	VIEW_HEIGHT : GAME.CANVAS_HEIGHT / GAME.TILE_SCALE - 2,
 });
 
 GAME.Renderer = (function() {
@@ -27,10 +29,18 @@ GAME.Renderer = (function() {
 		C_PLAYER = GAME.C_PLAYER,
 		C_PL_BULLET = GAME.C_PL_BULLET,
 		C_ENEMY = GAME.C_ENEMY,
-		C_EN_BULLET = GAME.C_EN_BULLET;
+		C_EN_BULLET = GAME.C_EN_BULLET,
+		VIEW_WIDTH = GAME.VIEW_WIDTH,
+		VIEW_HEIGHT = GAME.VIEW_HEIGHT;
 
 	canvas.height = height;
 	canvas.width = width;
+
+	function draw() {
+		drawFloors();
+		drawWalls();
+		drawBullets();
+	}
 
 	function drawTile(x, y) {
 		//TODO: Check if tile is within window bounds
@@ -71,12 +81,6 @@ GAME.Renderer = (function() {
 			ctx.closePath();
 			ctx.fill();
 		}
-	}
-
-	function draw() {
-		drawFloors();
-		drawWalls();
-		drawBullets();
 	}
 
 	return {
