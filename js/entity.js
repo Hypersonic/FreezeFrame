@@ -1,9 +1,10 @@
 GAME.setConsts({
+	S_PLAYER : [[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5]]
 });
 
 GAME.Entity = (function() {
 
-    function newEntity(x, y) {
+    function newEntity(x, y, shape) {
         return {
             x : GAME.defaultTo(x, 0),
             y : GAME.defaultTo(y, 0),
@@ -12,8 +13,17 @@ GAME.Entity = (function() {
 
             angle : 0,
 
-            shape : []
+            shape : cloneShape(shape)
         }
+    }
+
+    function cloneShape(shape) {
+		var newShape = [];
+		for (var i = 0; i < shape.length; i++) {
+			newShape.push([shape[i][0], shape[i][1]]);
+		}
+
+		return newShape;
     }
 
     function move(ent, dx, dy) {

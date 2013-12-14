@@ -40,6 +40,7 @@ GAME.Renderer = (function() {
 		drawFloors();
 		drawWalls();
 		drawBullets();
+		drawEntities();
 	}
 
 	function drawTile(x, y) {
@@ -67,20 +68,32 @@ GAME.Renderer = (function() {
 	function drawBullets() {
 		ctx.fillStyle = C_PL_BULLET;
 		for (var i = 0, len = GAME.bullets.length; i < len; i++) {
-			var bullet = GAME.bullets[i];
-			var points = GAME.Math.rotatePoints(bullet.shape, bullet.angle);
-			var x = bullet.x;
-			var y = bullet.y;
-			// Trace the shape of our bullet
-			ctx.beginPath();
-			ctx.moveTo(x + points[0][0], y + points[0][1]);
-			for (var j = 0, pl = points.length; j<pl;j++) {
-				var p = points[j];
-				ctx.lineTo(x + p[0], y + p[1]);
-			}
-			ctx.closePath();
-			ctx.fill();
+			drawEntity(GAME.bullets[i]);
 		}
+	}
+
+	function drawEntities() {
+		ctx.fillStyle = C_PLAYER;
+		drawEntity(GAME.player);
+
+		ctx.fillStyle = C_ENEMY;
+		for (var i = 0; i < GAME.entities.length; i++) {
+			drawEntity(GAME.entities[i]);
+		}
+	}
+
+	function drawEntity(e) {
+		var points = GAME.Math.rotatePoints(e.shape, e.angle);
+
+		ctx.beginPath();
+		ctx.moveTo(scale + e.x + points[0][0] * scale,
+		           scale + e.y + points[0][1] * scale);
+		for (var i = 1; i < points.length; i++) {
+			ctx.lineTo(scale + e.x + points[i][0] * scale,
+			           scale + e.y + points[i][1] * scale);
+		}
+		ctx.closePath();
+		ctx.fill();
 	}
 
 	return {
