@@ -25,6 +25,7 @@ GAME.setup = function() {
     document.getElementById("gamedrawarea").appendChild(GAME.canvas);
 
     GAME.current_level = GAME.Level.generateMapTiles();
+    GAME.bullets = [];
     GAME.frames = []; // list of the number of ms it took to calculate the most recent bunch of frames
 
 }

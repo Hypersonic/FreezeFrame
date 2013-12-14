@@ -24,7 +24,10 @@ GAME.Renderer = (function() {
       WALL_TILE   = GAME.WALL_TILE,
       C_FLOOR = GAME.C_FLOOR,
       C_WALL = GAME.C_WALL,
-      C_PLAYER = GAME.C_PLAYER;
+      C_PLAYER = GAME.C_PLAYER,
+      C_PL_BULLET = GAME.C_PL_BULLET,
+      C_ENEMY = GAME.C_ENEMY,
+      C_EN_BULLET = GAME.C_EN_BULLET;
 
   canvas.height = height;
   canvas.width = width;
@@ -51,9 +54,29 @@ GAME.Renderer = (function() {
     }
   }
 
+  function drawBullets() {
+    ctx.fillStyle = C_PL_BULLET;
+    for (var i = 0, len = GAME.bullets.length; i < len; i++) {
+      var bullet = GAME.bullets[i];
+      var points = GAME.Math.rotatePoints(bullet.shape, bullet.angle);
+      var x = bullet.x;
+      var y = bullet.y;
+      // Trace the shape of our bullet
+      ctx.beginPath();
+      ctx.moveTo(x + points[0][0], y + points[0][1]);
+      for (var j = 0, pl = points.length; j<pl;j++) {
+        var p = points[j];
+        ctx.lineTo(x + p[0], y + p[1]);
+      }
+      ctx.closePath();
+      ctx.fill();
+    }
+  }
+
   function draw() {
     drawFloors();
     drawWalls();
+    drawBullets();
   }
 
   return {
