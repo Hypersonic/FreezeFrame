@@ -37,6 +37,21 @@ GAME.main = function() {
     // Reset timer for fps next frame
     var lastRender = Date.now();
 
+    // Handle inputs
+    if (GAME.I_DOWN) {
+      GAME.Entity.move(GAME.player, 0, 1);
+    }
+    if (GAME.I_UP) {
+      GAME.Entity.move(GAME.player, 0, -1);
+    }
+    if (GAME.I_LEFT) {
+      GAME.Entity.move(GAME.player, -1, 0);
+    }
+    if (GAME.I_RIGHT) {
+      GAME.Entity.move(GAME.player, 1, 0);
+    }
+
+
     // Draw
     GAME.Renderer.draw();
 
