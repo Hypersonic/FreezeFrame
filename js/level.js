@@ -11,6 +11,11 @@ GAME.Level = (function() {
         return {
             tilemap : [],
 
+            size    : {
+                width: 10,
+                height : 10
+            }
+
             spawn : {
                 x: 1,
                 y: 1,
