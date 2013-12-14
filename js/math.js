@@ -5,8 +5,8 @@ GAME.Math = (function() {
     var x = m1[0];
     var y = m1[1];
     var resultant = [];
-    resultant.push(x * m2[0][0] + x * m2[0][1]); // x val
-    resultant.push(y * m2[1][0] + y * m2[1][1]); // y val;
+    resultant.push(x * m2[0][0] + y * m2[0][1]); // x val
+    resultant.push(x * m2[1][0] + y * m2[1][1]); // y val;
     return resultant;
   }
 
