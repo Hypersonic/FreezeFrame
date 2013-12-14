@@ -64,6 +64,7 @@ GAME.Bullet = (function() {
                     // change to new angle, reverse some velocity
                     // undoStep(); // TODO: is this necessary?
                     bullet.path.push([bullet.x, bullet.y]);
+                    break;
                 }
             }
         }
