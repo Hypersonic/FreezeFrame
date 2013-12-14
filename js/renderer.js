@@ -31,7 +31,7 @@ GAME.Renderer = (function() {
 
   function drawTile(x, y) {
     //TODO: Check if tile is within window bounds
-    ctx.drawRect(x*scale, y*scale, scale, scale);
+    ctx.fillRect(x*scale, y*scale, scale, scale);
   }
 
   function drawFloors() {
