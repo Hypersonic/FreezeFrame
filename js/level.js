@@ -33,5 +33,6 @@ GAME.Level = (function() {
     }
 
     return {
+        generateMapTiles : generateMapTiles
     }
 })();
