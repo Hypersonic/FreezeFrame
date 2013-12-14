@@ -38,21 +38,21 @@ GAME.main = function() {
     var lastRender = Date.now();
 
     // Handle inputs
-    var ddx = 0;
-    var ddy = 0;
     if (GAME.I_DOWN) {
-    	ddy++;
+      GAME.Entity.move(GAME.player, 0, 1);
     }
     if (GAME.I_UP) {
-    	ddy--;
+      GAME.Entity.move(GAME.player, 0, -1);
     }
     if (GAME.I_LEFT) {
-    	ddx--;
+      GAME.Entity.move(GAME.player, -1, 0);
     }
     if (GAME.I_RIGHT) {
-    	ddx++;
+      GAME.Entity.move(GAME.player, 1, 0);
     }
-	GAME.Entity.move(GAME.player, ddx, ddy);
+
+    GAME.player.angle = Math.atan2(GAME.player.x - GAME.MOUSE_X, GAME.player.y - GAME.MOUSE_Y); 
+
 
     // Draw
     GAME.Renderer.draw();
