@@ -40,8 +40,8 @@ GAME.mouseUp = function(event) {
 }
 
 GAME.mouseMove = function(event) {
-	GAME.MOUSE_X = event.x;
-	GAME.MOUSE_Y = event.y;
+	GAME.MOUSE_X = event.x - 9;
+	GAME.MOUSE_Y = event.y - 29;
 }
 
 // Register with document

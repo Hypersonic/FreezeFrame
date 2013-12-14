@@ -12,12 +12,11 @@ GAME.Math = (function() {
 
   //Rotates a list of coordinates by theta given in radians
   function rotatePoints(points, angle) {
-    var rot = [
-      [Math.cos(angle), -Math.sin(angle)],
-      [Math.sin(angle), Math.cos(angle)]
-      ];
+    var rot = [[Math.cos(angle), -Math.sin(angle)],
+               [Math.sin(angle), Math.cos(angle)]
+              ];
     var resultant = [];
-    for (var i = 0, len = points.length; i<len; i++) {
+    for (var i = 0; i < points.length; i++) {
       resultant.push(multiplyMatrix(points[i], rot));
     }
     return resultant;

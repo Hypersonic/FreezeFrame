@@ -41,6 +41,7 @@ GAME.Renderer = (function() {
 		drawWalls();
 		drawBullets();
 		drawEntities();
+		ctx.fillRect(GAME.MOUSE_X, GAME.MOUSE_Y, 10, 10);
 	}
 
 	function drawTile(x, y) {
