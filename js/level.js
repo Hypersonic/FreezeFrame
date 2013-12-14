@@ -14,7 +14,7 @@ GAME.Level = (function() {
             size    : {
                 width: 10,
                 height : 10
-            }
+            },
 
             spawn : {
                 x: 1,
@@ -33,6 +33,5 @@ GAME.Level = (function() {
     }
 
     return {
-        checkLine : checkLine
     }
 })();
