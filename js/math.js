@@ -10,7 +10,7 @@ GAME.Math = (function() {
     return resultant;
   }
 
-  //Rotates a list of coordinates by theta
+  //Rotates a list of coordinates by theta given in radians
   function rotatePoints(points, angle) {
     var rot = [
       [Math.cos(angle), -Math.sin(angle)],
