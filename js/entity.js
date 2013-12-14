@@ -3,10 +3,10 @@ GAME.setConsts({
 
 GAME.Entity = (function() {
 
-    function newEntity() {
+    function newEntity(x, y) {
         return {
-            x : -1,
-            y : -1,
+            x : GAME.defaultTo(x, 0),
+            y : GAME.defaultTo(y, 0),
             xvel : 0,
             yvel : 0,
 
@@ -29,6 +29,7 @@ GAME.Entity = (function() {
 
     return {
         move : move,
-        shoot : shoot
+        shoot : shoot,
+        newEntity : newEntity
     }
 })();

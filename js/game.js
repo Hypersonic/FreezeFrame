@@ -28,6 +28,7 @@ GAME.setup = function() {
     GAME.bullets = [];
     GAME.frames = []; // list of the number of ms it took to calculate the most recent bunch of frames
 
+	GAME.player = GAME.Entity.newEntity();
 }
 
 GAME.main = function() {
