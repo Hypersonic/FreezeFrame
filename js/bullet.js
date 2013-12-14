@@ -7,8 +7,8 @@ GAME.Bullet = (function() {
         return {
             x : -1,
             y : -1,
-            xvel : 0,
-            yvel : 0,
+            xvel : 10,
+            yvel : 10,
 
             angle : 0,
 
@@ -40,7 +40,27 @@ GAME.Bullet = (function() {
             for (var j = ry - 1.5; j < 3; j++) {
                 tilecoors = {x: i, y: j}
                 if (GAME.current_level.tilemap[i][j] == WALL_TILE && dist(bullet, tilecoors) < 1) {
-                    theta = calculateThetaOut();
+                    var hitsUp = hitsDown = hitsRight = hitsLeft = true;
+                    if (bullet.x < i) {
+                        hitsLeft = false;
+                    }
+                    if (bullet.x > i) {
+                        hitsRight = false;
+                    }
+                    if (bullet.y < j) {
+                        hitsDown = false;
+                    }
+                    if (bullet.y > j) {
+                        hitsUp = false;
+                    }
+
+                    if (hitsUp || hitsDown) {
+                        bullet.yvel *= -1;
+                    }
+                    if (hitsLeft || hitsRight) {
+                        bullet.xvel *= -1;
+                    }
+
                     // change to new angle, reverse some velocity
                     // undoStep(); // TODO: is this necessary?
                     bullet.path.push([bullet.x, bullet.y]);
