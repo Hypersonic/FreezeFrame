@@ -93,7 +93,7 @@ GAME.Entity = (function() {
 
     function shoot(ent) {
         bullet = GAME.Entity.newBullet(ent.x, ent.y, GAME.S_BULLET);
-        bullet.angle = ent.angle;
+        bullet.angle = ent.angle - 90;
 
         bullet.xvel = GAME.E_MAXVEL * Math.cos(ent.angle);
         bullet.yvel = GAME.E_MAXVEL * Math.sin(ent.angle);
@@ -103,16 +103,18 @@ GAME.Entity = (function() {
     }
 
     function detectCollisions(ent) {
-
         // check collision with surrounding tiles
         rx = Math.round(ent.x)
         ry = Math.round(ent.y)
-        for (var i = rx - 1.5; i < 3; i++) {
-            for (var j = ry - 1.5; j < 3; j++) {
-                tilecoors = {x: i, y: j}
-                if (GAME.current_level.tilemap[i][j] == WALL_TILE && dist(ent, tilecoors) < 1) {
-                    if (ent.type == GAME.E_TYPE_ent) {
-                        var hitsUp = hitsDown = hitsRight = hitsLeft = true;
+        for (var i = rx - 1; i < 2; i++) {
+            for (var j = ry - 1; j < 2; j++) {
+                if (i < 0 || j < 0) {break;}
+                tilecoors = {x: i, y: j};
+                if (GAME.current_level.tilemap[i][j] == GAME.WALL_TILE && dist(ent, tilecoors) < 1) {
+                    console.log(dist(ent, tilecoors));
+                    if (ent.entityType == GAME.E_TYPE_BULLET) {
+                        var hitsUp, hitsDown, hitsRight, hitsLeft;
+                        hitsUp = hitsDown = hitsRight = hitsLeft = true;
                         if (ent.x < i) {
                             hitsLeft = false;
                         }
@@ -125,6 +127,7 @@ GAME.Entity = (function() {
                         if (ent.y > j) {
                             hitsUp = false;
                         }
+                        console.log(hitsLeft + "," +  hitsRight + "," +  hitsDown + "," +  hitsUp);
 
                         if (hitsUp || hitsDown) {
                             ent.yvel *= -1;
@@ -133,9 +136,8 @@ GAME.Entity = (function() {
                             ent.xvel *= -1;
                         }
 
-                        // change to new angle, reverse some velocity
-                        // undoStep(); // TODO: is this necessary?
                         ent.path.push([ent.x, ent.y]);
+                        step(ent);
                         break;
                     } else {
                         ent.xvel = ent.yvel = 0;
@@ -145,7 +147,7 @@ GAME.Entity = (function() {
         }
 
         // if bullet, check with entities
-        if (ent.type == GAME.E_TYPE_BULLET) {
+        if (ent.entityType == GAME.E_TYPE_BULLET) {
             for (var i = 0; i < GAME.entities.length; i++) {
                 e = GAME.entites[i];
                 if (GAME.Entity.dist(bullet, ent) < 1 && !(e === ent)) {
