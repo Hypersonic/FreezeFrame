@@ -31,7 +31,10 @@ GAME.Renderer = (function() {
 		C_ENEMY = GAME.C_ENEMY,
 		C_EN_BULLET = GAME.C_EN_BULLET,
 		VIEW_WIDTH = GAME.VIEW_WIDTH,
-		VIEW_HEIGHT = GAME.VIEW_HEIGHT;
+		VIEW_HEIGHT = GAME.VIEW_HEIGHT,
+    vgnfade = 0,
+    vgnmax = .25;
+
 
 	canvas.height = height;
 	canvas.width = width;
@@ -101,7 +104,8 @@ GAME.Renderer = (function() {
 
   function drawVingette() {
     var start = 0;
-    var end = .25;
+    vgnfade += .15;
+    var end = Math.min(vgnfade, vgnmax);
     var vingette = ctx.createLinearGradient(0,0,GAME.current_level.size.width*scale,GAME.current_level.size.height*scale);
     vingette.addColorStop(start, "rgba(0,0,0,250)");
     vingette.addColorStop(end, "rgba(100,0,0,0)");
