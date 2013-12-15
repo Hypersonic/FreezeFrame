@@ -53,8 +53,9 @@ GAME.Entity = (function() {
     }
 
     function step(ent) {
-        ent.x += ent.xvel;
-        ent.y += ent.yvel;
+    	var TIME_FACTOR = 0.08;
+        ent.x += ent.xvel * GAME.frames[GAME.frames.length-1]*TIME_FACTOR;
+        ent.y += ent.yvel * GAME.frames[GAME.frames.length-1]*TIME_FACTOR;
 
         return ent;
     }
