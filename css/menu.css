@@ -4,6 +4,16 @@
     border-style: solid;
 }
 
+#instrarea {
+    display: none;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+}
+
+#instrdesc {
+    text-align: justify;
+}
 a {
     color: gray;
 }
