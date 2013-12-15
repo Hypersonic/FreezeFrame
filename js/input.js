@@ -3,7 +3,8 @@ GAME.setConsts({
     K_UP        : 'W',
     K_DOWN      : 'S',
     K_LEFT      : 'A',
-    K_RIGHT     : 'D'
+    K_RIGHT     : 'D',
+    K_SWITCH    : 'F'
 });
 
 // These will be true if the key is pressed for them
@@ -11,7 +12,8 @@ GAME.setConsts({
     I_UP      : false,
     I_DOWN    : false,
     I_LEFT    : false,
-    I_RIGHT   : false
+    I_RIGHT   : false,
+    I_SWITCH  : false
 });
 
 // Create key listeners
@@ -21,6 +23,7 @@ GAME.keyDown = function(event) {
     if (key == GAME.K_DOWN)  GAME.I_DOWN = true;
     if (key == GAME.K_LEFT)  GAME.I_LEFT = true;
     if (key == GAME.K_RIGHT) GAME.I_RIGHT = true;
+    if (key == GAME.K_SWITCH) GAME.I_SWITCH = true;
 }
 
 GAME.keyUp = function(event) {
@@ -29,6 +32,7 @@ GAME.keyUp = function(event) {
     if (key == GAME.K_DOWN)  GAME.I_DOWN = false;
     if (key == GAME.K_LEFT)  GAME.I_LEFT = false;
     if (key == GAME.K_RIGHT) GAME.I_RIGHT = false;
+    if (key == GAME.K_SWITCH) GAME.I_SWITCH = false;
 }
 
 GAME.mouseDown = function(event) {

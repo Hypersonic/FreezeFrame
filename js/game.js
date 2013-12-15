@@ -1,7 +1,8 @@
 var GAME = {
 
-    framelength         :  Math.floor(1000/30), //30 fps
-    fpsSampleSize       :  5
+    framelength         : Math.floor(1000/30), //30 fps
+    fpsSampleSize       : 5,
+    enemyStyle          : 0
 
 }
 
@@ -38,12 +39,32 @@ GAME.setup = function() {
 }
 
 GAME.main = function() {
+	if (!GAME.I_SWITCH)
+		GAME.switched = false;
+
+    if (GAME.I_SWITCH && !GAME.switched) {
+    	GAME.switched = true;
+    	GAME.enemyStyle = (GAME.enemyStyle+1) % 2;
+    	console.log(GAME.enemyStyle);
+    }
 
     // Reset timer for fps next frame
     var lastRender = Date.now();
 
-    for (var i = 0; i < GAME.entities.length; i++)
-    	GAME.AI.followAI(GAME.entities[i]);
+	switch(GAME.enemyStyle) {
+    	case GAME.AI_FOLLOW:
+    		for (var i = 0; i < GAME.entities.length; i++)
+    			GAME.AI.followAI(GAME.entities[i]);
+    		break;
+    	case GAME.AI_SCATTER:
+    		for (var i = 0; i < GAME.entities.length; i++)
+    			GAME.AI.scatterAI(GAME.entities[i]);
+    		break;
+    	case GAME.AI_PREDICT:
+    		for (var i = 0; i < GAME.entities.length; i++)
+    			GAME.AI.predictAI(GAME.entities[i]);
+    		break;
+    }
 
     // Handle inputs
     var ddx = 0;
