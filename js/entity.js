@@ -142,8 +142,12 @@ GAME.Entity = (function() {
     }
 
     function detectWallCollision(ent, tilex, tiley) {
-    	var CONST = GAME.REPULSION_CONST;
+    	var CONST = GAME.REPULSION_CONST,
+		    width = GAME.current_level.size.width,
+		    height = GAME.current_level.size.height;
 
+		if (tilex < 0 || width <= tilex || tiley < 0 || height < tiley)
+			return;
     	if (GAME.current_level.tilemap[tilex][tiley] == GAME.FLOOR_TILE)
     		return;
 
