@@ -177,10 +177,18 @@ GAME.Entity = (function() {
 			var CONST = 5;
 
 			if (d < 5) {
-				ent.xvel -= Math.cos(angleToEnt) * CONST;
-				ent.yvel -= Math.sin(angleToEnt) * CONST;
-				entities[i].xvel += Math.cos(angleToEnt) * CONST;
-				entities[i].yvel += Math.sin(angleToEnt) * CONST;
+				if (ent.entityType == GAME.E_TYPE_BULLET) {
+					if (entities[i] == GAME.player) {
+						GAME.end();
+					} else {
+						entities.splice(i, 1);
+					}
+				} else {
+					ent.xvel -= Math.cos(angleToEnt) * CONST;
+					ent.yvel -= Math.sin(angleToEnt) * CONST;
+					entities[i].xvel += Math.cos(angleToEnt) * CONST;
+					entities[i].yvel += Math.sin(angleToEnt) * CONST;
+				}
 			}
 		}
     }
