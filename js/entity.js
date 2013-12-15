@@ -1,6 +1,7 @@
 GAME.setConsts({
     E_MAXVEL : 10,
 	S_PLAYER : [[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5]],
+    S_BULLET : [[0, 1], [-1, 0.7], [-1, -1], [1, -1], [1, 0.7]],
     E_TYPE_ENEMY : 0,
     E_TYPE_PLAYER : 1,
     E_TYPE_BULLET : 2
@@ -85,9 +86,7 @@ GAME.Entity = (function() {
     }
 
     function shoot(ent) {
-        bullet = GAME.Entity.newBullet();
-        bullet.x = ent.x;
-        bullet.y = ent.y;
+        bullet = GAME.Entity.newBullet(ent.x, ent.y, GAME.S_BULLET);
         bullet.angle = ent.angle;
 
         return bullet;
