@@ -38,18 +38,21 @@ GAME.main = function() {
     var lastRender = Date.now();
 
     // Handle inputs
+    var ddx = 0;
+    var ddy = 0;
     if (GAME.I_DOWN) {
-      GAME.Entity.move(GAME.player, 0, 1);
+    	ddy++;
     }
     if (GAME.I_UP) {
-      GAME.Entity.move(GAME.player, 0, -1);
+    	ddy--;
     }
     if (GAME.I_LEFT) {
-      GAME.Entity.move(GAME.player, -1, 0);
+    	ddx--;
     }
     if (GAME.I_RIGHT) {
-      GAME.Entity.move(GAME.player, 1, 0);
+    	ddx++;
     }
+    GAME.Entity.move(GAME.player, ddx, ddy);
     if (GAME.I_CLICK) {
       GAME.Entity.shoot(GAME.player);
     }
@@ -62,7 +65,6 @@ GAME.main = function() {
     var dx = GAME.MOUSE_X - GAME.player.x;
     var dy = GAME.MOUSE_Y - GAME.player.y;
     GAME.player.angle = Math.atan2(dy, dx);
-    console.log(dx + " " + dy);
 
     // Draw
     GAME.Renderer.draw();
