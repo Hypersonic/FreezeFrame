@@ -33,7 +33,7 @@ GAME.Renderer = (function() {
 		VIEW_WIDTH = GAME.VIEW_WIDTH,
 		VIEW_HEIGHT = GAME.VIEW_HEIGHT,
     vgnfade = 0,
-    vgnmax = .25;
+    vgnmax = .35;
 
 
 	canvas.height = height;
@@ -109,10 +109,10 @@ GAME.Renderer = (function() {
 
   function drawVingette() {
     var start = 0;
-    vgnfade += .15;
+    vgnfade += (vgnmax - vgnfade) / 10;
     var end = Math.min(vgnfade, vgnmax);
     var vingette = ctx.createLinearGradient(0,0,GAME.current_level.size.width*scale,GAME.current_level.size.height*scale);
-    vingette.addColorStop(start, "rgba(0,0,0,250)");
+    vingette.addColorStop(start, "rgba(0,0,0,255)");
     vingette.addColorStop(end, "rgba(100,0,0,0)");
     ctx.fillStyle = vingette;
     ctx.fillRect(0,0,width,height);
