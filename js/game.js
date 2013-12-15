@@ -29,6 +29,7 @@ GAME.setup = function() {
     GAME.bullets = [];
     GAME.entities = [];
     GAME.frames = []; // list of the number of ms it took to calculate the most recent bunch of frames
+    GAME.frozen = false;
 	for (var i = 0; i < 30; i++) {
 		var x = Math.random() * GAME.current_level.size.width * GAME.TILE_SCALE;
 		var y = Math.random() * GAME.current_level.size.height * GAME.TILE_SCALE;
@@ -48,22 +49,27 @@ GAME.main = function() {
     	console.log(GAME.enemyStyle);
     }
 
+    if (GAME.I_SPACE)
+        GAME.frozen = true;
+
     // Reset timer for fps next frame
     var lastRender = Date.now();
 
-	switch(GAME.enemyStyle) {
-    	case GAME.AI_FOLLOW:
-    		for (var i = 0; i < GAME.entities.length; i++)
-    			GAME.AI.followAI(GAME.entities[i]);
-    		break;
-    	case GAME.AI_SCATTER:
-    		for (var i = 0; i < GAME.entities.length; i++)
-    			GAME.AI.scatterAI(GAME.entities[i]);
-    		break;
-    	case GAME.AI_PREDICT:
-    		for (var i = 0; i < GAME.entities.length; i++)
-    			GAME.AI.predictAI(GAME.entities[i]);
-    		break;
+    if (!GAME.frozen) {
+        switch(GAME.enemyStyle) {
+            case GAME.AI_FOLLOW:
+                for (var i = 0; i < GAME.entities.length; i++)
+                    GAME.AI.followAI(GAME.entities[i]);
+                break;
+            case GAME.AI_SCATTER:
+                for (var i = 0; i < GAME.entities.length; i++)
+                    GAME.AI.scatterAI(GAME.entities[i]);
+                break;
+            case GAME.AI_PREDICT:
+                for (var i = 0; i < GAME.entities.length; i++)
+                    GAME.AI.predictAI(GAME.entities[i]);
+                break;
+        }
     }
 
     // Handle inputs
@@ -81,7 +87,8 @@ GAME.main = function() {
     if (GAME.I_RIGHT) {
     	ddx++;
     }
-    GAME.Entity.move(GAME.player, ddx, ddy);
+    if (!GAME.frozen)
+        GAME.Entity.move(GAME.player, ddx, ddy);
     if (GAME.I_CLICK) {
       GAME.Entity.shoot(GAME.player);
     }
