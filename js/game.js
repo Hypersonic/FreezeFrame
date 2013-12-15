@@ -50,6 +50,9 @@ GAME.main = function() {
     if (GAME.I_RIGHT) {
       GAME.Entity.move(GAME.player, 1, 0);
     }
+    if (GAME.I_CLICK) {
+      GAME.Entity.shoot(GAME.player);
+    }
 
     var dx = GAME.MOUSE_X - GAME.player.x;
     var dy = GAME.MOUSE_Y - GAME.player.y;
