@@ -121,11 +121,8 @@ GAME.Entity = (function() {
 
 			if (d < 5) {
 				if (ent.entityType == GAME.E_TYPE_BULLET) {
-					if (entities[i] == GAME.player) {
-						GAME.end();
-					} else {
-						entities.splice(i, 1);
-					}
+					entities.splice(i, 1);
+					GAME.kills++;
 				} else {
 					ent.xvel -= Math.cos(angleToEnt) * CONST;
 					ent.yvel -= Math.sin(angleToEnt) * CONST;
@@ -136,12 +133,15 @@ GAME.Entity = (function() {
 		}
 
 		var tilex = Math.floor(ent.x / GAME.TILE_SCALE),
-		    tiley = Math.floor(ent.y / GAME.TILE_SCALE);
+		    tiley = Math.floor(ent.y / GAME.TILE_SCALE),
+		    wallCollided = false;
 		for (var i = -1; i <= 1; i++) {
 			for (var j = -1; j <= 1; j++) {
-				detectWallCollision(ent, tilex + j, tiley + i);
+				wallCollided |= detectWallCollision(ent, tilex+j, tiley+i);
 			}
 		}
+
+		return wallCollided;
     }
 
     function detectWallCollision(ent, tilex, tiley) {
@@ -161,7 +161,9 @@ GAME.Entity = (function() {
 			dy = ty - ent.y,
 			angleToEnt = Math.atan2(dy, dx);
 		
+		var collision = true;
 		if (d < 5) {
+			collision = false;
 			if (ent.entityType == GAME.E_TYPE_BULLET) {
 				if (tilex != Math.floor(ent.x / GAME.TILE_SCALE))
 					ent.xvel *= -1;
@@ -172,6 +174,13 @@ GAME.Entity = (function() {
 				ent.yvel -= Math.sin(angleToEnt) * CONST;
 			}
 		}
+
+		return collision;
+    }
+
+    function speedOf(entity) {
+		return Math.sqrt(Math.pow(entity.xvel, 2) +
+		                 Math.pow(entity.yvel, 2));
     }
 
     return {
@@ -183,6 +192,7 @@ GAME.Entity = (function() {
         newEntity : newEntity,
         newEnemy : newEnemy,
         newPlayer : newPlayer,
-        newBullet : newBullet
+        newBullet : newBullet,
+        speedOf : speedOf,
     }
 })();

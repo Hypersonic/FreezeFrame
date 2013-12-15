@@ -2,9 +2,11 @@ var GAME = {
     framelength         : Math.floor(1000/30), //30 fps
     fpsSampleSize       : 5,
     enemyStyle          : 0,
+    kills               : 0,
     incresed            : false,
     decresed            : false,
-    hasShot             : false
+    hasShot             : false,
+    over                : false,
 }
 
 // With thanks to Wolfenstein3D-browser
@@ -129,7 +131,15 @@ GAME.main = function() {
 
     for (var j=0; j<300; j++) {
     	for (var i = 0; i < GAME.bullets.length; i++) {
-        	GAME.Entity.detectCollisions(GAME.bullets[i]);
+    		GAME.bullets[i].xvel *= 0.99999;
+    		GAME.bullets[i].yvel *= 0.99999;
+        	if (GAME.Entity.detectCollisions(GAME.bullets[i])) {
+        		GAME.bullets[i].xvel *= 0.9999;
+        		GAME.bullets[i].yvel *= 0.9999;
+        	}
+        	if (GAME.Entity.speedOf(GAME.bullets[i]) < 0.001) {
+        		GAME.over = true;
+        	}
     	}
 
     	// All bullets must step
@@ -164,5 +174,27 @@ GAME.main = function() {
 
     // Schedule ourselves for another run, subtracted by the time for this
     // frame so we can catch up and keep game time consistient
-    setTimeout(GAME.main, GAME.framelength - delta);
+    if (GAME.over) {
+    	GAME.end();
+    } else {
+    	setTimeout(GAME.main, GAME.framelength - delta);
+    }
+}
+
+GAME.end = function() {
+	var canvas = GAME.canvas;
+	var ctx = GAME.ctx;
+
+	ctx.clearRect(0, 0, canvas.width-1, canvas.height-1);
+	ctx.fillStyle = "rgb(0,0,0)";
+	ctx.fillRect(0, 0, canvas.width, GAME.TILE_SCALE);
+	ctx.fillRect(0, 0, GAME.TILE_SCALE, canvas.height);
+	ctx.fillRect(0, canvas.height - GAME.TILE_SCALE,
+	             canvas.width, GAME.TILE_SCALE);
+	ctx.fillRect(canvas.width - GAME.TILE_SCALE, 0,
+	             GAME.TILE_SCALE, canvas.height);
+
+	ctx.font = "40px Arial";
+	ctx.fillText("Score", canvas.width/2 - 25, canvas.height/2);
+	ctx.fillText(GAME.kills, canvas.width/2 - 25, canvas.height/2 + 50);
 }
