@@ -44,9 +44,14 @@ GAME.Renderer = (function() {
 		drawWalls();
 		drawBullets();
 		drawEntities();
-    if (GAME.frozen) {
-      drawVingette();
-    }
+		if (GAME.frozen) {
+			drawVingette();
+		}
+		ctx.fillStyle = "rgb(50,50,50)";
+		var player = GAME.player;
+		var x = Math.floor(player.x / GAME.TILE_SCALE);
+		var y = Math.floor(player.y / GAME.TILE_SCALE);
+		GAME.current_level.tilemap[x][y] = GAME.WALL_TILE;
 	}
 
 	function drawTile(x, y) {
