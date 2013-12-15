@@ -62,6 +62,14 @@ GAME.main = function() {
         GAME.Entity.step(GAME.bullets[i]);
     }
 
+    // Detect all collisions
+    for (var i = 0; i < GAME.entities.length; i++) {
+        GAME.Entity.detectCollisions(GAME.entities[i]);
+    }
+    for (var i = 0; i < GAME.bullets.length; i++) {
+        GAME.Entity.detectCollisions(GAME.bullets[i]);
+    }
+
     var dx = GAME.MOUSE_X - GAME.player.x;
     var dy = GAME.MOUSE_Y - GAME.player.y;
     GAME.player.angle = Math.atan2(dy, dx);

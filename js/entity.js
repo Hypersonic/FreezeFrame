@@ -162,6 +162,7 @@ GAME.Entity = (function() {
 
 
     return {
+        detectCollisions : detectCollisions,
         step : step,
         move : move,
         dist : dist,
