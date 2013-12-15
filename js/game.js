@@ -110,14 +110,9 @@ GAME.main = function() {
     	GAME.Entity.move(GAME.player, ddx, ddy);
     }
 
-    if (GAME.I_CLICK && GAME.frozen && !GAME.hasShot) {
+    if (GAME.I_CLICK){// && GAME.frozen && !GAME.hasShot) {
     	GAME.hasShot = true;
 		GAME.Entity.shoot(GAME.player);
-    }
-
-    // All bullets must step
-    for (var i = 0; i < GAME.bullets.length; i++) {
-        GAME.Entity.step(GAME.bullets[i]);
     }
 
     // Detect all collisions
@@ -125,8 +120,16 @@ GAME.main = function() {
     for (var i = 0; i < GAME.entities.length; i++) {
         GAME.Entity.detectCollisions(GAME.entities[i]);
     }
-    for (var i = 0; i < GAME.bullets.length; i++) {
-        GAME.Entity.detectCollisions(GAME.bullets[i]);
+
+    for (var j=0; j<30; j++) {
+    	for (var i = 0; i < GAME.bullets.length; i++) {
+        	GAME.Entity.detectCollisions(GAME.bullets[i]);
+    	}
+
+    	// All bullets must step
+    	for (var i = 0; i < GAME.bullets.length; i++) {
+        	GAME.Entity.step(GAME.bullets[i]);
+    	}
     }
 
     var dx = GAME.MOUSE_X - GAME.player.x;
