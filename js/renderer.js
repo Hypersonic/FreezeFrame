@@ -100,27 +100,29 @@ GAME.Renderer = (function() {
 	}
 
   function drawVingette() {
+    var start = 0;
+    var end = .25;
     var vingette = ctx.createLinearGradient(0,0,GAME.current_level.size.width*scale,GAME.current_level.size.height*scale);
-    vingette.addColorStop(0, "rgba(0,0,0,250)");
-    vingette.addColorStop(.3, "rgba(100,0,0,0)");
+    vingette.addColorStop(start, "rgba(0,0,0,250)");
+    vingette.addColorStop(end, "rgba(100,0,0,0)");
     ctx.fillStyle = vingette;
     ctx.fillRect(0,0,width,height);
 
     vingette = ctx.createLinearGradient(GAME.current_level.size.width*scale,GAME.current_level.size.height*scale,0,0);
-    vingette.addColorStop(0, "rgba(0,0,0,250)");
-    vingette.addColorStop(.3, "rgba(100,0,0,0)");
+    vingette.addColorStop(start, "rgba(0,0,0,250)");
+    vingette.addColorStop(end, "rgba(100,0,0,0)");
     ctx.fillStyle = vingette;
     ctx.fillRect(0,0,width,height);
 
     vingette = ctx.createLinearGradient(0,GAME.current_level.size.width*scale,GAME.current_level.size.height*scale,0);
-    vingette.addColorStop(0, "rgba(0,0,0,250)");
-    vingette.addColorStop(.3, "rgba(100,0,0,0)");
+    vingette.addColorStop(start, "rgba(0,0,0,250)");
+    vingette.addColorStop(end, "rgba(100,0,0,0)");
     ctx.fillStyle = vingette;
     ctx.fillRect(0,0,width,height);
 
     vingette = ctx.createLinearGradient(GAME.current_level.size.width*scale,0,0,GAME.current_level.size.height*scale);
-    vingette.addColorStop(0, "rgba(0,0,0,250)");
-    vingette.addColorStop(.3, "rgba(100,0,0,0)");
+    vingette.addColorStop(start, "rgba(0,0,0,250)");
+    vingette.addColorStop(end, "rgba(100,0,0,0)");
     ctx.fillStyle = vingette;
     ctx.fillRect(0,0,width,height);
 
