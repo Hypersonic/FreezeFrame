@@ -41,7 +41,7 @@ GAME.Renderer = (function() {
 		drawWalls();
 		drawBullets();
 		drawEntities();
-    if (GAME.FROZEN) {
+    if (GAME.frozen) {
       drawVingette();
     }
 	}
