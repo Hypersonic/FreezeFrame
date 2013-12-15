@@ -1,13 +1,13 @@
 GAME.setConsts({
-    E_MAXVEL : 3,
+    E_MAXVEL : 0.1,
     B_MAXVEL : 0.1,
 	S_PLAYER : [[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5]],
     S_BULLET : [[0, .5], [-.3, 0.15], [-.3, -.3], [.3, -.3], [.3, 0.15]],
     E_TYPE_ENEMY : 0,
     E_TYPE_PLAYER : 1,
     E_TYPE_BULLET : 2,
-    REPULSION_CONST : 3,
-    WALL_REPULSION_CONST : 3,
+    REPULSION_CONST : 3 / 30,
+    WALL_REPULSION_CONST : 3 / 30,
 });
 
 GAME.Entity = (function() {
@@ -20,7 +20,7 @@ GAME.Entity = (function() {
             yvel : 0,
 
             angle : 0,
-            accel : 1,
+            accel : 1/30,
             maxSpeed : GAME.E_MAXVEL,
 
             entityType : type,

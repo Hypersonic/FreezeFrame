@@ -57,11 +57,11 @@ GAME.debug = function() {
 	
     if (GAME.I_INCRES && !GAME.incresed) {
     	GAME.incresed = true;
-    	GAME.REPULSION_CONST++;
+    	GAME.REPULSION_CONST += 1 / 30;
     }
     if (GAME.I_DECRES && !GAME.decresed) {
     	GAME.decresed = true;
-    	GAME.REPULSION_CONST--;
+    	GAME.REPULSION_CONST -= 1 / 30;
 	}
 }
 
@@ -77,19 +77,27 @@ GAME.main = function() {
     var lastRender = Date.now();
 
     if (!GAME.frozen) {
-        switch(GAME.enemyStyle) {
-            case GAME.AI_FOLLOW:
-                for (var i = 0; i < GAME.entities.length; i++)
-                    GAME.AI.followAI(GAME.entities[i]);
-                break;
-            case GAME.AI_SCATTER:
-                for (var i = 0; i < GAME.entities.length; i++)
-                    GAME.AI.scatterAI(GAME.entities[i]);
-                break;
-            case GAME.AI_PREDICT:
-                for (var i = 0; i < GAME.entities.length; i++)
-                    GAME.AI.predictAI(GAME.entities[i]);
-                break;
+    	for (var j = 0; j < 30; j++) {
+        	switch(GAME.enemyStyle) {
+            	case GAME.AI_FOLLOW:
+                	for (var i = 0; i < GAME.entities.length; i++)
+                    	GAME.AI.followAI(GAME.entities[i]);
+                	break;
+            	case GAME.AI_SCATTER:
+                	for (var i = 0; i < GAME.entities.length; i++)
+                    	GAME.AI.scatterAI(GAME.entities[i]);
+                	break;
+            	case GAME.AI_PREDICT:
+                	for (var i = 0; i < GAME.entities.length; i++)
+                    	GAME.AI.predictAI(GAME.entities[i]);
+                	break;
+        	}
+
+    		// Detect all collisions
+    		GAME.Entity.detectCollisions(GAME.player);
+    		for (var i = 0; i < GAME.entities.length; i++) {
+        		GAME.Entity.detectCollisions(GAME.entities[i]);
+    		}
         }
 
     	// Handle inputs
@@ -107,18 +115,15 @@ GAME.main = function() {
     	if (GAME.I_RIGHT) {
     		ddx++;
     	}
-    	GAME.Entity.move(GAME.player, ddx, ddy);
+    	for (var j = 0; j < 30; j++) {
+    		GAME.Entity.move(GAME.player, ddx, ddy);
+
+    	}
     }
 
     if (GAME.I_CLICK){// && GAME.frozen && !GAME.hasShot) {
     	GAME.hasShot = true;
 		GAME.Entity.shoot(GAME.player);
-    }
-
-    // Detect all collisions
-    GAME.Entity.detectCollisions(GAME.player);
-    for (var i = 0; i < GAME.entities.length; i++) {
-        GAME.Entity.detectCollisions(GAME.entities[i]);
     }
 
     for (var j=0; j<30; j++) {
