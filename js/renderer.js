@@ -105,7 +105,7 @@ GAME.Renderer = (function() {
   function drawVingette() {
     var start = 0;
     vgnfade += (vgnmax - vgnfade) / 10;
-    var cstart = "rgba(100,100,100,255)";
+    var cstart = "rgba(40,30,30,255)";
     var cend = "rgba(100,0,0,0)";
     var end = Math.min(vgnfade, vgnmax);
     var vingette = ctx.createLinearGradient(0,0,GAME.player.x, GAME.player.y);
