@@ -93,6 +93,63 @@ GAME.Entity = (function() {
         return bullet;
     }
 
+    function detectCollisions(ent) {
+
+        // check collision with surrounding tiles
+        rx = Math.round(ent.x)
+        ry = Math.round(ent.y)
+        for (var i = rx - 1.5; i < 3; i++) {
+            for (var j = ry - 1.5; j < 3; j++) {
+                tilecoors = {x: i, y: j}
+                if (GAME.current_level.tilemap[i][j] == WALL_TILE && dist(ent, tilecoors) < 1) {
+                    if (ent.type == E_TYPE_BULLET) {
+                        var hitsUp = hitsDown = hitsRight = hitsLeft = true;
+                        if (bullet.x < i) {
+                            hitsLeft = false;
+                        }
+                        if (bullet.x > i) {
+                            hitsRight = false;
+                        }
+                        if (bullet.y < j) {
+                            hitsDown = false;
+                        }
+                        if (bullet.y > j) {
+                            hitsUp = false;
+                        }
+
+                        if (hitsUp || hitsDown) {
+                            bullet.yvel *= -1;
+                        }
+                        if (hitsLeft || hitsRight) {
+                            bullet.xvel *= -1;
+                        }
+
+                        // change to new angle, reverse some velocity
+                        // undoStep(); // TODO: is this necessary?
+                        bullet.path.push([bullet.x, bullet.y]);
+                        break;
+                    } else {
+                        ent.xvel = ent.yvel = 0;
+                    }
+                }
+            }
+        }
+
+        // if bullet, check with entities
+        if (ent.type == E_TYPE_BULLET) {
+            for (e : GAME.entities) {
+                if (GAME.Entity.dist(bullet, ent) < 1 && !(e === ent)) {
+                    if (ent.isPlayer) {
+                        GAME.end();
+                    } else { // bullet hit an enemy
+                        GAME.yay();
+                        GAME.score++;
+                    }
+                }
+            }
+        }
+    }
+
 
     return {
         move : move,
