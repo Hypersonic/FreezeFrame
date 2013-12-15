@@ -104,29 +104,30 @@ GAME.Entity = (function() {
 
     function detectCollisions(ent) {
         // check collision with surrounding tiles
-        rx = Math.round(ent.x)
-        ry = Math.round(ent.y)
-        for (var i = rx - 1; i < 2; i++) {
-            for (var j = ry - 1; j < 2; j++) {
-                if (i < 0 || j < 0) {break;}
-                tilecoors = {x: i, y: j};
-                if (GAME.current_level.tilemap[i][j] == GAME.WALL_TILE && dist(ent, tilecoors) < 1) {
-                    console.log(dist(ent, tilecoors));
+        rx = Math.round(ent.x / GAME.TILE_SCALE);
+        ry = Math.round(ent.y / GAME.TILE_SCALE);
+        for (var i = rx  - 1; i < rx +  2; i++) {
+            for (var j = ry - 1; j < ry + 2; j++) {
+                if (i < 0 || j < 0 || i >= GAME.current_level.size.width || j >= GAME.current_level.size.height) {break;}
+                realtilecoors = {x: i * GAME.TILE_SCALE, y: j * GAME.TILE_SCALE};
+                if (GAME.current_level.tilemap[i][j] == GAME.WALL_TILE && dist(ent, realtilecoors) < GAME.TILE_SCALE / 5) {
+                    console.log(dist(ent, realtilecoors));
                     if (ent.entityType == GAME.E_TYPE_BULLET) {
                         var hitsUp, hitsDown, hitsRight, hitsLeft;
                         hitsUp = hitsDown = hitsRight = hitsLeft = true;
-                        if (ent.x < i) {
+                        if (ent.x < i * GAME.TILE_SCALE) {
                             hitsLeft = false;
                         }
-                        if (ent.x > i) {
+                        if (ent.x > i * GAME.TILE_SCALE) {
                             hitsRight = false;
                         }
-                        if (ent.y < j) {
+                        if (ent.y < j * GAME.TILE_SCALE) {
                             hitsDown = false;
                         }
-                        if (ent.y > j) {
+                        if (ent.y > j * GAME.TILE_SCALE) {
                             hitsUp = false;
                         }
+
                         console.log(hitsLeft + "," +  hitsRight + "," +  hitsDown + "," +  hitsUp);
 
                         if (hitsUp || hitsDown) {
@@ -140,7 +141,7 @@ GAME.Entity = (function() {
                         step(ent);
                         break;
                     } else {
-                        ent.xvel = ent.yvel = 0;
+                        move(ent, -ent.xvel, -ent.yvel);
                     }
                 }
             }
