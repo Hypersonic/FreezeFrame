@@ -88,6 +88,7 @@ GAME.Entity = (function() {
     function shoot(ent) {
         bullet = GAME.Entity.newBullet(ent.x, ent.y, GAME.S_BULLET);
         bullet.angle = ent.angle;
+        GAME.bullets.push(bullet);
 
         return bullet;
     }
