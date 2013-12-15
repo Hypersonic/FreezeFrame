@@ -3,7 +3,7 @@ GAME.setConsts({
 	CANVAS_WIDTH : 800,
 	CANVAS_HEIGHT : 600,
 	TILE_SCALE : 5,
-	C_PLAYER : "rgb(0,255,0)",
+	C_PLAYER : "rgb(0,200,0)",
 	C_PL_BULLET : "rgb(0,0,255)",
 	C_ENEMY : "rgb(255,0,0)",
 	C_EN_BULLET : "rgb(100,100,100)",
@@ -41,7 +41,6 @@ GAME.Renderer = (function() {
 		drawWalls();
 		drawBullets();
 		drawEntities();
-		ctx.fillRect(GAME.MOUSE_X, GAME.MOUSE_Y, 10, 10);
 	}
 
 	function drawTile(x, y) {

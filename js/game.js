@@ -57,7 +57,6 @@ GAME.main = function() {
     var dx = GAME.MOUSE_X - GAME.player.x;
     var dy = GAME.MOUSE_Y - GAME.player.y;
     GAME.player.angle = Math.atan2(dy, dx);
-    console.log(dx + " " + dy);
 
     // Draw
     GAME.Renderer.draw();
