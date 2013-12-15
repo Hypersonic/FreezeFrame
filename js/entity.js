@@ -1,6 +1,9 @@
 GAME.setConsts({
-  E_MAXVEL : 10,
-	S_PLAYER : [[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5]]
+    E_MAXVEL : 10,
+	S_PLAYER : [[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5]],
+    E_TYPE_ENEMY : 0,
+    E_TYPE_PLAYER : 1,
+    E_TYPE_BULLET : 2
 });
 
 GAME.Entity = (function() {
