@@ -48,8 +48,9 @@ GAME.Entity = (function() {
     }
 
     function step(ent) {
-        ent.x += xvel;
-        ent.y += yvel;
+        ent.x += ent.xvel;
+        ent.y += ent.yvel;
+
 
         return ent;
     }
