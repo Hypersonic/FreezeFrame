@@ -35,10 +35,7 @@ GAME.Entity = (function() {
     }
 
     function newBullet(x, y, shape) {
-        bullet = newEntity(x, y, shape, GAME.E_TYPE_BULLET);
-        bullet.xvel = 10;
-        bullet.yvel = 10;
-        return bullet;
+        return newEntity(x, y, shape, GAME.E_TYPE_BULLET);
     }
 
     function cloneShape(shape) {
@@ -95,8 +92,11 @@ GAME.Entity = (function() {
     function shoot(ent) {
         bullet = GAME.Entity.newBullet(ent.x, ent.y, GAME.S_BULLET);
         bullet.angle = ent.angle;
-        GAME.bullets.push(bullet);
 
+        bullet.xvel = GAME.E_MAXVEL * Math.cos(ent.angle);
+        bullet.yvel = GAME.E_MAXVEL * Math.sin(ent.angle);
+
+        GAME.bullets.push(bullet);
         return bullet;
     }
 
