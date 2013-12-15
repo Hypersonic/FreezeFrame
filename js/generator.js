@@ -6,7 +6,7 @@ GAME.Generator = (function() {
 	function generate(level) {
 		var width = level.size.width,
 		    height = level.size.height,
-		    hallways = [];
+		    prvHall;
 
 		for (var i = 0; i < height; i++) {
 			var row = [];
@@ -17,8 +17,17 @@ GAME.Generator = (function() {
 			level.tilemap.push(row);
 		}
 
-		for (var i = 0; i < 5; i++) {
-			generateHallway(level);
+		var x1, x2, y1, y2;
+		for (var i = 0; i < 40; i++) {
+			var x1 = Math.floor(Math.random() * width),
+			    y1 = Math.floor(Math.random() * height),
+				x2 = Math.floor(Math.random() * (width - x1)),
+			    y2 = Math.floor(Math.random() * (height - y1)),
+			    x3 = Math.floor(Math.random() * width),
+			    y3 = Math.floor(Math.random() * height);
+
+			generateHorizHallway(level, x1, x2, y3);
+			generateVertHallway(level, y1, y2, x3);
 		}
 
 		for (var i = 0; i < height; i++) {
@@ -32,36 +41,32 @@ GAME.Generator = (function() {
 		}
 	}
 
-	function generateHallway(level) {
+	function generateVertHallway(level, y1, y2, x) {
 		var width = level.size.width,
 		    height = level.size.height,
 		    halls = 5;
 
-		var found = false;
-		while (!found) {
-		    var y = Math.floor(Math.random() * height);
-		    var flailed = false;
-
-		    for (var i = 0; i < level.hallways.length; i++) {
-				if (Math.abs(level.hallways[i] - y) < 6) {
-					flailed = true;
-					break;
-				}
-		    }
-
-		    found = !flailed;
-		}
-		level.hallways.push(y);
-
-		for (var i = 0; i < width; i++) {
+		for (var i = y1; i <= y2; i++) {
 			for (var j = -1; j <= 1; j++) {
-				if (j + y < 0 || j + y > width)
+				if (j + x < 0 || j + x > width)
 					continue;
-				if (j + y < 0 || j + y > width)
+
+				level.tilemap[j + x][i] = GAME.FLOOR_TILE;
+			}
+		}
+	}
+
+	function generateHorizHallway(level, x1, x2, y) {
+		var width = level.size.width,
+		    height = level.size.height,
+		    halls = 5;
+
+		for (var i = x1; i <= x2; i++) {
+			for (var j = -1; j <= 1; j++) {
+				if (j + y < 0 || j + y > height)
 					continue;
 
 				level.tilemap[i][j + y] = GAME.FLOOR_TILE;
-				level.tilemap[j + y][i] = GAME.FLOOR_TILE;
 			}
 		}
 	}
