@@ -50,13 +50,12 @@ GAME.Entity = (function() {
     function move(ent, dx, dy) {
         var acl = Math.sqrt(dx * dx + dy * dy);
 
-        ent.xvel *= 0.9;
-        ent.yvel *= 0.9;
+        ent.xvel *= 0.8;
+        ent.yvel *= 0.8;
 
 		if (acl != 0) {
         	dx /= acl;
         	dy /= acl;
-
 			dx *= ent.accel;
 			dy *= ent.accel;
 		}
@@ -68,14 +67,12 @@ GAME.Entity = (function() {
         if (spd > ent.maxSpeed) {
 			ent.xvel /= spd;
 			ent.yvel /= spd;
-
 			ent.xvel *= ent.maxSpeed;
 			ent.yvel *= ent.maxSpeed;
         }
 
 		ent.x += ent.xvel;
 		ent.y += ent.yvel;
-
         return ent;
     }
 
