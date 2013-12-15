@@ -102,7 +102,7 @@ GAME.Entity = (function() {
         return bullet;
     }
 
-    function detectCollisions(ent) {
+    /*function detectCollisions(ent) {
         // check collision with surrounding tiles
         rx = Math.round(ent.x / GAME.TILE_SCALE);
         ry = Math.round(ent.y / GAME.TILE_SCALE);
@@ -111,7 +111,6 @@ GAME.Entity = (function() {
                 if (i < 0 || j < 0 || i >= GAME.current_level.size.width || j >= GAME.current_level.size.height) {break;}
                 realtilecoors = {x: i * GAME.TILE_SCALE, y: j * GAME.TILE_SCALE};
                 if (GAME.current_level.tilemap[i][j] == GAME.WALL_TILE && dist(ent, realtilecoors) < GAME.TILE_SCALE / 5) {
-                    console.log(dist(ent, realtilecoors));
                     if (ent.entityType == GAME.E_TYPE_BULLET) {
                         var hitsUp, hitsDown, hitsRight, hitsLeft;
                         hitsUp = hitsDown = hitsRight = hitsLeft = true;
@@ -161,6 +160,29 @@ GAME.Entity = (function() {
                 }
             }
         }
+    }*/
+
+    function detectCollisions(ent) {
+    	var entities = GAME.entities;
+
+		for (var i=0; i < entities.length; i++) {
+			if (entities[i] == ent)
+				continue;
+
+			var d = dist(entities[i], ent),
+			    dx = entities[i].x - ent.x,
+			    dy = entities[i].y - ent.y,
+			    angleToEnt = Math.atan2(dy, dx);
+
+			var CONST = 5;
+
+			if (d < 5) {
+				ent.xvel -= Math.cos(angleToEnt) * CONST;
+				ent.yvel -= Math.sin(angleToEnt) * CONST;
+				entities[i].xvel += Math.cos(angleToEnt) * CONST;
+				entities[i].yvel += Math.sin(angleToEnt) * CONST;
+			}
+		}
     }
 
     return {
