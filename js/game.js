@@ -1,9 +1,9 @@
 var GAME = {
-
     framelength         : Math.floor(1000/30), //30 fps
     fpsSampleSize       : 5,
-    enemyStyle          : 0
-
+    enemyStyle          : 0,
+    incresed            : false,
+    decresed            : false
 }
 
 // With thanks to Wolfenstein3D-browser
@@ -38,7 +38,7 @@ GAME.setup = function() {
 	GAME.player = GAME.Entity.newEntity(10, 10, GAME.S_PLAYER);
 }
 
-GAME.main = function() {
+GAME.debug = function() {
 	if (!GAME.I_SWITCH)
 		GAME.switched = false;
 
@@ -47,6 +47,24 @@ GAME.main = function() {
     	GAME.enemyStyle = (GAME.enemyStyle+1) % 2;
     	console.log(GAME.enemyStyle);
     }
+
+	if (!GAME.I_INCRES)
+		GAME.incresed = false;
+	if (!GAME.I_DECRES)
+		GAME.decresed = false;
+	
+    if (GAME.I_INCRES && !GAME.incresed) {
+    	GAME.incresed = true;
+    	GAME.REPULSION_CONST++;
+    }
+    if (GAME.I_DECRES && !GAME.decresed) {
+    	GAME.decresed = true;
+    	GAME.REPULSION_CONST--;
+	}
+}
+
+GAME.main = function() {
+	GAME.debug();
 
     // Reset timer for fps next frame
     var lastRender = Date.now();

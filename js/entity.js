@@ -4,7 +4,8 @@ GAME.setConsts({
     S_BULLET : [[0, .5], [-.3, 0.15], [-.3, -.3], [.3, -.3], [.3, 0.15]],
     E_TYPE_ENEMY : 0,
     E_TYPE_PLAYER : 1,
-    E_TYPE_BULLET : 2
+    E_TYPE_BULLET : 2,
+    REPULSION_CONST : 3,
 });
 
 GAME.Entity = (function() {
@@ -102,68 +103,9 @@ GAME.Entity = (function() {
         return bullet;
     }
 
-    /*function detectCollisions(ent) {
-        // check collision with surrounding tiles
-        rx = Math.round(ent.x / GAME.TILE_SCALE);
-        ry = Math.round(ent.y / GAME.TILE_SCALE);
-        for (var i = rx  - 1; i < rx +  2; i++) {
-            for (var j = ry - 1; j < ry + 2; j++) {
-                if (i < 0 || j < 0 || i >= GAME.current_level.size.width || j >= GAME.current_level.size.height) {break;}
-                realtilecoors = {x: i * GAME.TILE_SCALE, y: j * GAME.TILE_SCALE};
-                if (GAME.current_level.tilemap[i][j] == GAME.WALL_TILE && dist(ent, realtilecoors) < GAME.TILE_SCALE / 5) {
-                    if (ent.entityType == GAME.E_TYPE_BULLET) {
-                        var hitsUp, hitsDown, hitsRight, hitsLeft;
-                        hitsUp = hitsDown = hitsRight = hitsLeft = true;
-                        if (ent.x < i * GAME.TILE_SCALE) {
-                            hitsLeft = false;
-                        }
-                        if (ent.x > i * GAME.TILE_SCALE) {
-                            hitsRight = false;
-                        }
-                        if (ent.y < j * GAME.TILE_SCALE) {
-                            hitsDown = false;
-                        }
-                        if (ent.y > j * GAME.TILE_SCALE) {
-                            hitsUp = false;
-                        }
-
-                        console.log(hitsLeft + "," +  hitsRight + "," +  hitsDown + "," +  hitsUp);
-
-                        if (hitsUp || hitsDown) {
-                            ent.yvel *= -1;
-                        }
-                        if (hitsLeft || hitsRight) {
-                            ent.xvel *= -1;
-                        }
-
-                        ent.path.push([ent.x, ent.y]);
-                        step(ent);
-                        break;
-                    } else {
-                        move(ent, -ent.xvel, -ent.yvel);
-                    }
-                }
-            }
-        }
-
-        // if bullet, check with entities
-        if (ent.entityType == GAME.E_TYPE_BULLET) {
-            for (var i = 0; i < GAME.entities.length; i++) {
-                e = GAME.entities[i];
-                if (GAME.Entity.dist(bullet, ent) < 1 && !(e === ent)) {
-                    if (ent.isPlayer) {
-                        GAME.end();
-                    } else { // bullet hit an enemy
-                        //GAME.yay();
-                        GAME.score++;
-                    }
-                }
-            }
-        }
-    }*/
-
     function detectCollisions(ent) {
-    	var entities = GAME.entities;
+    	var entities = GAME.entities,
+    	    CONST = GAME.REPULSION_CONST;
 
 		for (var i=0; i < entities.length; i++) {
 			if (entities[i] == ent)
@@ -173,8 +115,6 @@ GAME.Entity = (function() {
 			    dx = entities[i].x - ent.x,
 			    dy = entities[i].y - ent.y,
 			    angleToEnt = Math.atan2(dy, dx);
-
-			var CONST = 5;
 
 			if (d < 5) {
 				if (ent.entityType == GAME.E_TYPE_BULLET) {
