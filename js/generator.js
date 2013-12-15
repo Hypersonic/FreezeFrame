@@ -39,22 +39,26 @@ GAME.Generator = (function() {
 		var found = false;
 		while (!found) {
 			do
-				var x1 = Math.floor(Math.random() * width);
+				var x1 = Math.floor(Math.random() * width * 0.8);
 			while (width - x1 < 10);
 			do
 		    	var x2 = Math.floor(x1 + Math.random() * (width - x1));
 		    while (x2 - x1 < 5);
 			do
-		    	var y1 = Math.floor(Math.random() * height);
+		    	var y1 = Math.floor(Math.random() * height * 0.8);
 			while (height - y1 < 10);
 			do
 		    	var y2 = Math.floor(y1 + Math.random() * (height - y1));
-		    while (x2 - x1 < 5);
+		    while (y2 - y1 < 5);
 
 			found = true;
 			for (var i = -1; i <= y2 - y1+1; i++) {
 				for (var j = -1; j <= x2 - x1+1; j++) {
-					if (level.tilemap[y1 + i][x1 + j] == GAME.WALL_TILE) {
+					if (!(0 <= x1 + j && x1 + j < width &&
+					      0 <= y1 + i && y1 + i < height))
+					    continue;
+
+					if (level.tilemap[x1 + j][y1 + i] == GAME.WALL_TILE) {
 						found = false;
 						break;
 					}
@@ -65,17 +69,34 @@ GAME.Generator = (function() {
 		}
 
 		for (var i = x1; i <= x2; i++) {
-			level.tilemap[y1][i] = GAME.WALL_TILE;
-			level.tilemap[y2][i] = GAME.WALL_TILE;
+			level.tilemap[i][y1] = GAME.WALL_TILE;
+			level.tilemap[i][y2] = GAME.WALL_TILE;
 		}
 
 		for (var i = y1; i <= y2; i++) {
-			level.tilemap[i][x1] = GAME.WALL_TILE;
-			level.tilemap[i][x2] = GAME.WALL_TILE;
+			level.tilemap[x1][i] = GAME.WALL_TILE;
+			level.tilemap[x2][i] = GAME.WALL_TILE;
 		}
 
-		level.tilemap[x1][y1-1] = GAME.WALL_TILE;
-		level.tilemap[x1][y1-2] = GAME.WALL_TILE;
+		var side = Math.floor(Math.random() * 4);
+		switch(side) {
+			case 0:
+				level.tilemap[x1][y2-1] = GAME.FLOOR_TILE;
+				level.tilemap[x1][y2-2] = GAME.FLOOR_TILE;
+				break;
+			case 1:
+				level.tilemap[x2-1][y1] = GAME.FLOOR_TILE;
+				level.tilemap[x2-2][y1] = GAME.FLOOR_TILE;
+				break;
+			case 2:
+				level.tilemap[x2][y2-1] = GAME.FLOOR_TILE;
+				level.tilemap[x2][y2-2] = GAME.FLOOR_TILE;
+				break;
+			case 3:
+				level.tilemap[x2-1][y2] = GAME.FLOOR_TILE;
+				level.tilemap[x2-2][y2] = GAME.FLOOR_TILE;
+				break;
+		}
 
 		console.log(x1 + " " + x2 + " " + y1 + " " + y2);
 	}
