@@ -1,5 +1,6 @@
 GAME.setConsts({
-    E_MAXVEL : 10,
+    E_MAXVEL : 3,
+    B_MAXVEL : 3,
 	S_PLAYER : [[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5]],
     S_BULLET : [[0, .5], [-.3, 0.15], [-.3, -.3], [.3, -.3], [.3, 0.15]],
     E_TYPE_ENEMY : 0,
@@ -20,7 +21,7 @@ GAME.Entity = (function() {
 
             angle : 0,
             accel : 1,
-            maxSpeed : 3,
+            maxSpeed : GAME.E_MAXVEL,
 
             entityType : type,
 
@@ -95,10 +96,10 @@ GAME.Entity = (function() {
 
     function shoot(ent) {
         bullet = GAME.Entity.newBullet(ent.x, ent.y, GAME.S_BULLET);
-        bullet.angle = ent.angle - 90;
+        bullet.angle = ent.angle;
 
-        bullet.xvel = GAME.E_MAXVEL * Math.cos(ent.angle);
-        bullet.yvel = GAME.E_MAXVEL * Math.sin(ent.angle);
+        bullet.xvel = GAME.B_MAXVEL * Math.cos(ent.angle);
+        bullet.yvel = GAME.B_MAXVEL * Math.sin(ent.angle);
 
         GAME.bullets.push(bullet);
         return bullet;

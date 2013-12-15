@@ -3,7 +3,8 @@ var GAME = {
     fpsSampleSize       : 5,
     enemyStyle          : 0,
     incresed            : false,
-    decresed            : false
+    decresed            : false,
+    hasShot             : false
 }
 
 // With thanks to Wolfenstein3D-browser
@@ -88,27 +89,28 @@ GAME.main = function() {
                     GAME.AI.predictAI(GAME.entities[i]);
                 break;
         }
+
+    	// Handle inputs
+    	var ddx = 0;
+    	var ddy = 0;
+    	if (GAME.I_DOWN) {
+    		ddy++;
+    	}
+    	if (GAME.I_UP) {
+    		ddy--;
+    	}
+    	if (GAME.I_LEFT) {
+    		ddx--;
+    	}
+    	if (GAME.I_RIGHT) {
+    		ddx++;
+    	}
+    	GAME.Entity.move(GAME.player, ddx, ddy);
     }
 
-    // Handle inputs
-    var ddx = 0;
-    var ddy = 0;
-    if (GAME.I_DOWN) {
-    	ddy++;
-    }
-    if (GAME.I_UP) {
-    	ddy--;
-    }
-    if (GAME.I_LEFT) {
-    	ddx--;
-    }
-    if (GAME.I_RIGHT) {
-    	ddx++;
-    }
-    if (!GAME.frozen)
-        GAME.Entity.move(GAME.player, ddx, ddy);
-    if (GAME.I_CLICK) {
-      GAME.Entity.shoot(GAME.player);
+    if (GAME.I_CLICK && GAME.frozen && !GAME.hasShot) {
+    	GAME.hasShot = true;
+		GAME.Entity.shoot(GAME.player);
     }
 
     // All bullets must step
