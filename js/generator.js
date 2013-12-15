@@ -78,8 +78,25 @@ GAME.Generator = (function() {
 			level.tilemap[x2][i] = GAME.WALL_TILE;
 		}
 
-		level.tilemap[x1][y2-1] = GAME.FLOOR_TILE;
-		level.tilemap[x1][y2-2] = GAME.FLOOR_TILE;
+		var side = Math.floor(Math.random() * 4);
+		switch(side) {
+			case 0:
+				level.tilemap[x1][y2-1] = GAME.FLOOR_TILE;
+				level.tilemap[x1][y2-2] = GAME.FLOOR_TILE;
+				break;
+			case 1:
+				level.tilemap[x2-1][y1] = GAME.FLOOR_TILE;
+				level.tilemap[x2-2][y1] = GAME.FLOOR_TILE;
+				break;
+			case 2:
+				level.tilemap[x2][y2-1] = GAME.FLOOR_TILE;
+				level.tilemap[x2][y2-2] = GAME.FLOOR_TILE;
+				break;
+			case 3:
+				level.tilemap[x2-1][y2] = GAME.FLOOR_TILE;
+				level.tilemap[x2-2][y2] = GAME.FLOOR_TILE;
+				break;
+		}
 
 		console.log(x1 + " " + x2 + " " + y1 + " " + y2);
 	}
