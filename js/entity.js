@@ -26,15 +26,15 @@ GAME.Entity = (function() {
     }
 
     function newEnemy(x, y, shape) {
-        return newEntity(x, y, shape, E_TYPE_ENEMY);
+        return newEntity(x, y, shape, GAME.E_TYPE_ENEMY);
     }
 
     function newPlayer(x, y, shape) {
-        return newEntity(x, y, shape, E_TYPE_PLAYER);
+        return newEntity(x, y, shape, GAME.E_TYPE_PLAYER);
     }
 
     function newBullet(x, y, shape) {
-        return newEntity(x, y, shape, E_TYPE_BULLET);
+        return newEntity(x, y, shape, GAME.E_TYPE_BULLET);
     }
 
     function cloneShape(shape) {
@@ -85,7 +85,7 @@ GAME.Entity = (function() {
     }
 
     function shoot(ent) {
-        bullet = GAME.Bullet.newBullet();
+        bullet = GAME.Entity.newBullet();
         bullet.x = ent.x;
         bullet.y = ent.y;
         bullet.angle = ent.angle;
@@ -102,7 +102,7 @@ GAME.Entity = (function() {
             for (var j = ry - 1.5; j < 3; j++) {
                 tilecoors = {x: i, y: j}
                 if (GAME.current_level.tilemap[i][j] == WALL_TILE && dist(ent, tilecoors) < 1) {
-                    if (ent.type == E_TYPE_BULLET) {
+                    if (ent.type == GAME.E_TYPE_BULLET) {
                         var hitsUp = hitsDown = hitsRight = hitsLeft = true;
                         if (bullet.x < i) {
                             hitsLeft = false;
@@ -136,7 +136,7 @@ GAME.Entity = (function() {
         }
 
         // if bullet, check with entities
-        if (ent.type == E_TYPE_BULLET) {
+        if (ent.type == GAME.E_TYPE_BULLET) {
             for (var i = 0; i < GAME.entities.length; i++) {
                 e = GAME.entites[i];
                 if (GAME.Entity.dist(bullet, ent) < 1 && !(e === ent)) {
