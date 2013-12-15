@@ -127,7 +127,7 @@ GAME.main = function() {
 		GAME.Entity.shoot(GAME.player);
     }
 
-    for (var j=0; j<30; j++) {
+    for (var j=0; j<300; j++) {
     	for (var i = 0; i < GAME.bullets.length; i++) {
         	GAME.Entity.detectCollisions(GAME.bullets[i]);
     	}
