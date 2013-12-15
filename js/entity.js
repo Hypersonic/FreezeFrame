@@ -6,6 +6,7 @@ GAME.setConsts({
     E_TYPE_PLAYER : 1,
     E_TYPE_BULLET : 2,
     REPULSION_CONST : 3,
+    WALL_REPULSION_CONST : 3,
 });
 
 GAME.Entity = (function() {
@@ -142,7 +143,7 @@ GAME.Entity = (function() {
     }
 
     function detectWallCollision(ent, tilex, tiley) {
-    	var CONST = GAME.REPULSION_CONST,
+    	var CONST = GAME.WALL_REPULSION_CONST,
 		    width = GAME.current_level.size.width,
 		    height = GAME.current_level.size.height;
 
