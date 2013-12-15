@@ -28,6 +28,11 @@ GAME.setup = function() {
     GAME.bullets = [];
     GAME.entities = [];
     GAME.frames = []; // list of the number of ms it took to calculate the most recent bunch of frames
+	for (var i = 0; i < 30; i++) {
+		var x = Math.random() * GAME.current_level.size.width * GAME.TILE_SCALE;
+		var y = Math.random() * GAME.current_level.size.height * GAME.TILE_SCALE;
+		GAME.entities.push(GAME.Entity.newEntity(x, y, GAME.S_PLAYER));
+	}
 
 	GAME.player = GAME.Entity.newEntity(10, 10, GAME.S_PLAYER);
 }
@@ -36,6 +41,9 @@ GAME.main = function() {
 
     // Reset timer for fps next frame
     var lastRender = Date.now();
+
+    for (var i = 0; i < GAME.entities.length; i++)
+    	GAME.AI.followAI(GAME.entities[i]);
 
     // Handle inputs
     var ddx = 0;
