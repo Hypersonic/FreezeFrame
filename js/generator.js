@@ -97,8 +97,6 @@ GAME.Generator = (function() {
 				level.tilemap[x2-2][y2] = GAME.FLOOR_TILE;
 				break;
 		}
-
-		console.log(x1 + " " + x2 + " " + y1 + " " + y2);
 	}
 
 	function generateVertHallway(level, y1, y2, x) {
