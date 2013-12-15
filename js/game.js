@@ -94,7 +94,6 @@ GAME.main = function() {
         	}
 
     		// Detect all collisions
-    		GAME.Entity.detectCollisions(GAME.player);
     		for (var i = 0; i < GAME.entities.length; i++) {
         		GAME.Entity.detectCollisions(GAME.entities[i]);
     		}
@@ -117,7 +116,7 @@ GAME.main = function() {
     	}
     	for (var j = 0; j < 30; j++) {
     		GAME.Entity.move(GAME.player, ddx, ddy);
-
+    		GAME.Entity.detectCollisions(GAME.player);
     	}
     }
 
