@@ -120,7 +120,7 @@ GAME.main = function() {
     	}
     }
 
-    if (GAME.I_CLICK){// && GAME.frozen && !GAME.hasShot) {
+    if (GAME.I_CLICK && GAME.frozen && !GAME.hasShot) {
     	GAME.hasShot = true;
 		GAME.Entity.shoot(GAME.player);
     }

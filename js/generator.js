@@ -39,16 +39,16 @@ GAME.Generator = (function() {
 		var found = false;
 		while (!found) {
 			do
-				var x1 = Math.floor(Math.random() * width * 0.8);
+				var x1 = Math.floor(Math.random() * width * 0.8+1);
 			while (width - x1 < 10);
 			do
-		    	var x2 = Math.floor(x1 + Math.random() * (width - x1));
+		    	var x2 = Math.floor(x1 + Math.random() * (width - x1)-1);
 		    while (x2 - x1 < 5);
 			do
-		    	var y1 = Math.floor(Math.random() * height * 0.8);
+		    	var y1 = Math.floor(Math.random() * height * 0.8+1);
 			while (height - y1 < 10);
 			do
-		    	var y2 = Math.floor(y1 + Math.random() * (height - y1));
+		    	var y2 = Math.floor(y1 + Math.random() * (height - y1)-1);
 		    while (y2 - y1 < 5);
 
 			found = true;
