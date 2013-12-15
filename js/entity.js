@@ -160,6 +160,7 @@ GAME.Entity = (function() {
 
 
     return {
+        step : step,
         move : move,
         dist : dist,
         shoot : shoot,
