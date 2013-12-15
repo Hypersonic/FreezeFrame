@@ -109,31 +109,31 @@ GAME.Entity = (function() {
             for (var j = ry - 1.5; j < 3; j++) {
                 tilecoors = {x: i, y: j}
                 if (GAME.current_level.tilemap[i][j] == WALL_TILE && dist(ent, tilecoors) < 1) {
-                    if (ent.type == GAME.E_TYPE_BULLET) {
+                    if (ent.type == GAME.E_TYPE_ent) {
                         var hitsUp = hitsDown = hitsRight = hitsLeft = true;
-                        if (bullet.x < i) {
+                        if (ent.x < i) {
                             hitsLeft = false;
                         }
-                        if (bullet.x > i) {
+                        if (ent.x > i) {
                             hitsRight = false;
                         }
-                        if (bullet.y < j) {
+                        if (ent.y < j) {
                             hitsDown = false;
                         }
-                        if (bullet.y > j) {
+                        if (ent.y > j) {
                             hitsUp = false;
                         }
 
                         if (hitsUp || hitsDown) {
-                            bullet.yvel *= -1;
+                            ent.yvel *= -1;
                         }
                         if (hitsLeft || hitsRight) {
-                            bullet.xvel *= -1;
+                            ent.xvel *= -1;
                         }
 
                         // change to new angle, reverse some velocity
                         // undoStep(); // TODO: is this necessary?
-                        bullet.path.push([bullet.x, bullet.y]);
+                        ent.path.push([ent.x, ent.y]);
                         break;
                     } else {
                         ent.xvel = ent.yvel = 0;
