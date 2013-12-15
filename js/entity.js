@@ -149,12 +149,12 @@ GAME.Entity = (function() {
         // if bullet, check with entities
         if (ent.entityType == GAME.E_TYPE_BULLET) {
             for (var i = 0; i < GAME.entities.length; i++) {
-                e = GAME.entites[i];
+                e = GAME.entities[i];
                 if (GAME.Entity.dist(bullet, ent) < 1 && !(e === ent)) {
                     if (ent.isPlayer) {
                         GAME.end();
                     } else { // bullet hit an enemy
-                        GAME.yay();
+                        //GAME.yay();
                         GAME.score++;
                     }
                 }
