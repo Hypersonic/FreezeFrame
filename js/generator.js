@@ -42,11 +42,11 @@ GAME.Generator = (function() {
 				var x1 = Math.floor(Math.random() * width);
 			while (width - x1 < 10);
 			do
-		    	var y1 = Math.floor(Math.random() * height);
-			while (height - y1 < 10);
-			do
 		    	var x2 = Math.floor(x1 + Math.random() * (width - x1));
 		    while (x2 - x1 < 5);
+			do
+		    	var y1 = Math.floor(Math.random() * height);
+			while (height - y1 < 10);
 			do
 		    	var y2 = Math.floor(y1 + Math.random() * (height - y1));
 		    while (x2 - x1 < 5);
@@ -54,9 +54,6 @@ GAME.Generator = (function() {
 			found = true;
 			for (var i = -1; i <= y2 - y1+1; i++) {
 				for (var j = -1; j <= x2 - x1+1; j++) {
-					if (!(0 <= y1 + i && y1 + i < height &&
-						0 <= x1 + j  && x1 + j < width))
-						continue;
 					if (level.tilemap[y1 + i][x1 + j] == GAME.WALL_TILE) {
 						found = false;
 						break;
@@ -77,7 +74,10 @@ GAME.Generator = (function() {
 			level.tilemap[i][x2] = GAME.WALL_TILE;
 		}
 
-		console.log(x1 + " " + y1 + " " + x2 + " " + + " " + y2);
+		level.tilemap[x1][y1-1] = GAME.WALL_TILE;
+		level.tilemap[x1][y1-2] = GAME.WALL_TILE;
+
+		console.log(x1 + " " + x2 + " " + y1 + " " + y2);
 	}
 
 	function generateVertHallway(level, y1, y2, x) {
@@ -96,8 +96,7 @@ GAME.Generator = (function() {
 
 	function generateHorizHallway(level, x1, x2, y) {
 		var width = level.size.width,
-		    height = level.size.height,
-		    halls = 5;
+		    height = level.size.height;
 
 		for (var i = x1; i <= x2; i++) {
 			for (var j = -1; j <= 1; j++) {
