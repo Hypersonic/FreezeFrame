@@ -5,19 +5,18 @@ GAME.Math = (function() {
     var x = m1[0];
     var y = m1[1];
     var resultant = [];
-    resultant.push(x * m2[0][0] + x * m2[0][1]); // x val
-    resultant.push(y * m2[1][0] + y * m2[1][1]); // y val;
+    resultant.push(x * m2[0][0] + y * m2[0][1]); // x val
+    resultant.push(x * m2[1][0] + y * m2[1][1]); // y val;
     return resultant;
   }
 
   //Rotates a list of coordinates by theta given in radians
   function rotatePoints(points, angle) {
-    var rot = [
-      [Math.cos(angle), -Math.sin(angle)],
-      [Math.sin(angle), Math.cos(angle)]
-      ];
+    var rot = [[Math.cos(angle), -Math.sin(angle)],
+               [Math.sin(angle), Math.cos(angle)]
+              ];
     var resultant = [];
-    for (var i = 0, len = points.length; i<len; i++) {
+    for (var i = 0; i < points.length; i++) {
       resultant.push(multiplyMatrix(points[i], rot));
     }
     return resultant;

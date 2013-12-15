@@ -10,8 +10,8 @@ GAME.Entity = (function() {
 
     function newEntity(x, y, shape, type) {
         return {
-            x : GAME.defaultTo(x, 0),
-            y : GAME.defaultTo(y, 0),
+            x : GAME.defaultTo(x, 5),
+            y : GAME.defaultTo(y, 5),
             xvel : 0,
             yvel : 0,
 

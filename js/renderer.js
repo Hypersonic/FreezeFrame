@@ -41,6 +41,7 @@ GAME.Renderer = (function() {
 		drawWalls();
 		drawBullets();
 		drawEntities();
+		ctx.fillRect(GAME.MOUSE_X, GAME.MOUSE_Y, 10, 10);
 	}
 
 	function drawTile(x, y) {
@@ -86,11 +87,11 @@ GAME.Renderer = (function() {
 		var points = GAME.Math.rotatePoints(e.shape, e.angle);
 
 		ctx.beginPath();
-		ctx.moveTo(scale + e.x + points[0][0] * scale,
-		           scale + e.y + points[0][1] * scale);
+		ctx.moveTo(e.x + points[0][0] * scale,
+		           e.y + points[0][1] * scale);
 		for (var i = 1; i < points.length; i++) {
-			ctx.lineTo(scale + e.x + points[i][0] * scale,
-			           scale + e.y + points[i][1] * scale);
+			ctx.lineTo(e.x + points[i][0] * scale,
+			           e.y + points[i][1] * scale);
 		}
 		ctx.closePath();
 		ctx.fill();

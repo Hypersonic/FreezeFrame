@@ -50,9 +50,14 @@ GAME.main = function() {
     if (GAME.I_RIGHT) {
       GAME.Entity.move(GAME.player, 1, 0);
     }
+    if (GAME.I_CLICK) {
+      GAME.Entity.shoot(GAME.player);
+    }
 
-    GAME.player.angle = Math.atan2(GAME.player.x - GAME.MOUSE_X, GAME.player.y - GAME.MOUSE_Y); 
-
+    var dx = GAME.MOUSE_X - GAME.player.x;
+    var dy = GAME.MOUSE_Y - GAME.player.y;
+    GAME.player.angle = Math.atan2(dy, dx);
+    console.log(dx + " " + dy);
 
     // Draw
     GAME.Renderer.draw();
