@@ -38,6 +38,8 @@ GAME.setup = function() {
 	}
 
 	GAME.player = GAME.Entity.newEntity(10, 10, GAME.S_PLAYER);
+
+	GAME.Renderer.draw();
 }
 
 GAME.debug = function() {

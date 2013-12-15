@@ -61,7 +61,7 @@ MENU.setup = function() {
 MENU.play = function() {
     GAME.setup();
     document.getElementById('menuarea').style.display = "none";
-    GAME.main();
+    setTimeout(GAME.main, 2000);
 }
 
 MENU.home = function() {
