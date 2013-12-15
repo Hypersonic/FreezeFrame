@@ -1,7 +1,7 @@
 GAME.setConsts({
 	canvas : document.createElement("canvas"),
-	CANVAS_WIDTH : 800,
-	CANVAS_HEIGHT : 600,
+	CANVAS_WIDTH : 500,
+	CANVAS_HEIGHT : 500,
 	TILE_SCALE : 5,
 	C_PLAYER : "rgb(0,200,0)",
 	C_PL_BULLET : "rgb(0,0,255)",
@@ -41,6 +41,9 @@ GAME.Renderer = (function() {
 		drawWalls();
 		drawBullets();
 		drawEntities();
+    if (GAME.FROZEN) {
+      drawVingette();
+    }
 	}
 
 	function drawTile(x, y) {
@@ -96,7 +99,34 @@ GAME.Renderer = (function() {
 		ctx.fill();
 	}
 
+  function drawVingette() {
+    var vingette = ctx.createLinearGradient(0,0,GAME.current_level.size.width*scale,GAME.current_level.size.height*scale);
+    vingette.addColorStop(0, "rgba(0,0,0,250)");
+    vingette.addColorStop(.3, "rgba(100,0,0,0)");
+    ctx.fillStyle = vingette;
+    ctx.fillRect(0,0,width,height);
+
+    vingette = ctx.createLinearGradient(GAME.current_level.size.width*scale,GAME.current_level.size.height*scale,0,0);
+    vingette.addColorStop(0, "rgba(0,0,0,250)");
+    vingette.addColorStop(.3, "rgba(100,0,0,0)");
+    ctx.fillStyle = vingette;
+    ctx.fillRect(0,0,width,height);
+
+    vingette = ctx.createLinearGradient(0,GAME.current_level.size.width*scale,GAME.current_level.size.height*scale,0);
+    vingette.addColorStop(0, "rgba(0,0,0,250)");
+    vingette.addColorStop(.3, "rgba(100,0,0,0)");
+    ctx.fillStyle = vingette;
+    ctx.fillRect(0,0,width,height);
+
+    vingette = ctx.createLinearGradient(GAME.current_level.size.width*scale,0,0,GAME.current_level.size.height*scale);
+    vingette.addColorStop(0, "rgba(0,0,0,250)");
+    vingette.addColorStop(.3, "rgba(100,0,0,0)");
+    ctx.fillStyle = vingette;
+    ctx.fillRect(0,0,width,height);
+
+  }
 	return {
 		draw : draw,
+    drawVingette : drawVingette,
 	}
 })();
