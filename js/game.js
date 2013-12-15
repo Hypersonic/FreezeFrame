@@ -68,8 +68,10 @@ GAME.debug = function() {
 GAME.main = function() {
 	GAME.debug();
 
-    if (GAME.I_SPACE)
+    if (GAME.I_SPACE) {
         GAME.frozen = true;
+        GAME.framelength /= 2;
+    }
 
     // Reset timer for fps next frame
     var lastRender = Date.now();
