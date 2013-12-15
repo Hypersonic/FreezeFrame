@@ -71,6 +71,7 @@ GAME.main = function() {
     }
 
     // Detect all collisions
+    GAME.Entity.detectCollisions(GAME.player);
     for (var i = 0; i < GAME.entities.length; i++) {
         GAME.Entity.detectCollisions(GAME.entities[i]);
     }
