@@ -137,7 +137,8 @@ GAME.Entity = (function() {
 
         // if bullet, check with entities
         if (ent.type == E_TYPE_BULLET) {
-            for (e : GAME.entities) {
+            for (var i = 0; i < GAME.entities.length; i++) {
+                e = GAME.entites[i];
                 if (GAME.Entity.dist(bullet, ent) < 1 && !(e === ent)) {
                     if (ent.isPlayer) {
                         GAME.end();
