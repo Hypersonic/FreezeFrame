@@ -35,7 +35,10 @@ GAME.Entity = (function() {
     }
 
     function newBullet(x, y, shape) {
-        return newEntity(x, y, shape, GAME.E_TYPE_BULLET);
+        bullet = newEntity(x, y, shape, GAME.E_TYPE_BULLET);
+        bullet.xvel = 10;
+        bullet.yvel = 10;
+        return bullet;
     }
 
     function cloneShape(shape) {
@@ -50,7 +53,6 @@ GAME.Entity = (function() {
     function step(ent) {
         ent.x += ent.xvel;
         ent.y += ent.yvel;
-
 
         return ent;
     }
