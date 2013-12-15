@@ -22,6 +22,8 @@ GAME.Entity = (function() {
 
             entityType : type,
 
+            path : [],
+
             shape : cloneShape(shape)
         }
     }
