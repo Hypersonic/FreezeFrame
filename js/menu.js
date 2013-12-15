@@ -12,7 +12,7 @@ MENU.setup = function() {
     menuHeader = document.getElementById('menuheader');
     menuHeader.style.position = "absolute";
     menuHeader.style.left = width/2 - 70 + 'px';
-    menuHeader.style.top = 80;
+    menuHeader.style.top = 60;
 
     buttons = document.getElementsByClassName('menubutton');
     buttons[0].style.position = "absolute";
@@ -40,7 +40,7 @@ MENU.setup = function() {
     var instrHeader = document.getElementById('instrheader');
     instrHeader.style.position = "absolute";
     instrHeader.style.left = width/2 - 70 + 'px';
-    instrHeader.style.top = 80;
+    instrHeader.style.top = 60;
 
     var back = document.getElementById('instrbutton');
     back.style.position = "absolute";
@@ -54,7 +54,7 @@ MENU.setup = function() {
     desc.style.position = "absolute";
     desc.style.left = width/10;
     desc.style.width = width * 4/5;
-    desc.style.top = height/2 - 80;
+    desc.style.top = height/2 - 120;
 
 }
 
