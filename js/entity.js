@@ -85,10 +85,10 @@ GAME.Entity = (function() {
         return ent;
     }
 
-    function dist(ent, ent2) {
+    function dist(ent1, ent2) {
         dx = ent1.x - ent2.x
         dy = ent1.y - ent2.y
-        return sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+        return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
     }
 
     function shoot(ent) {
