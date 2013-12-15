@@ -32,8 +32,8 @@ GAME.Renderer = (function() {
 		C_EN_BULLET = GAME.C_EN_BULLET,
 		VIEW_WIDTH = GAME.VIEW_WIDTH,
 		VIEW_HEIGHT = GAME.VIEW_HEIGHT,
-    vgnfade = 0,
-    vgnmax = .8;
+    	vgnfade = 0,
+    	vgnmax = .8;
 
 
 	canvas.height = height;
@@ -44,9 +44,9 @@ GAME.Renderer = (function() {
 		drawWalls();
 		drawBullets();
 		drawEntities();
-    if (GAME.frozen) {
-      drawVingette();
-    }
+		if (GAME.frozen) {
+			drawVingette();
+		}
 	}
 
 	function drawTile(x, y) {

@@ -87,8 +87,8 @@ GAME.Entity = (function() {
     }
 
     function dist(ent1, ent2) {
-        dx = ent1.x - ent2.x
-        dy = ent1.y - ent2.y
+        var dx = ent1.x - ent2.x;
+        var dy = ent1.y - ent2.y;
         return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
     }
 
@@ -129,6 +129,40 @@ GAME.Entity = (function() {
 					entities[i].xvel += Math.cos(angleToEnt) * CONST;
 					entities[i].yvel += Math.sin(angleToEnt) * CONST;
 				}
+			}
+		}
+
+		var tilex = Math.floor(ent.x / GAME.TILE_SCALE),
+		    tiley = Math.floor(ent.y / GAME.TILE_SCALE);
+		for (var i = -1; i <= 1; i++) {
+			for (var j = -1; j <= 1; j++) {
+				detectWallCollision(ent, tilex + j, tiley + i);
+			}
+		}
+    }
+
+    function detectWallCollision(ent, tilex, tiley) {
+    	var CONST = GAME.REPULSION_CONST;
+
+    	if (GAME.current_level.tilemap[tilex][tiley] == GAME.FLOOR_TILE)
+    		return;
+
+    	var tx = (tilex + 0.5) * GAME.TILE_SCALE,
+    	    ty = (tiley + 0.5) * GAME.TILE_SCALE,
+		    d = Math.sqrt(Math.pow(tx-ent.x, 2) + Math.pow(ty-ent.y, 2)),
+			dx = tx - ent.x,
+			dy = ty - ent.y,
+			angleToEnt = Math.atan2(dy, dx);
+		
+		if (d < 5) {
+			if (ent.entityType == GAME.E_TYPE_BULLET) {
+				if (tilex != Math.floor(ent.x / GAME.TILE_SCALE))
+					ent.xvel *= -1;
+				if (tiley != Math.floor(ent.y / GAME.TILE_SCALE))
+					ent.yvel *= -1;
+			} else {
+				ent.xvel -= Math.cos(angleToEnt) * CONST;
+				ent.yvel -= Math.sin(angleToEnt) * CONST;
 			}
 		}
     }
