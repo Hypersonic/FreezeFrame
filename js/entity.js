@@ -47,6 +47,13 @@ GAME.Entity = (function() {
 		return newShape;
     }
 
+    function step(ent) {
+        ent.x += xvel;
+        ent.y += yvel;
+
+        return ent;
+    }
+
     function move(ent, dx, dy) {
         var acl = Math.sqrt(dx * dx + dy * dy);
 
