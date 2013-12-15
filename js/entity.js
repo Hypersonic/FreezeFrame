@@ -8,7 +8,7 @@ GAME.setConsts({
 
 GAME.Entity = (function() {
 
-    function newEntity(x, y, shape) {
+    function newEntity(x, y, shape, type) {
         return {
             x : GAME.defaultTo(x, 0),
             y : GAME.defaultTo(y, 0),
@@ -19,10 +19,22 @@ GAME.Entity = (function() {
             accel : 1,
             maxSpeed : 3,
 
-            isPlayer : false,
+            entityType : type,
 
             shape : cloneShape(shape)
         }
+    }
+
+    function newEnemy(x, y, shape) {
+        return newEntity(x, y, shape, E_TYPE_ENEMY);
+    }
+
+    function newPlayer(x, y, shape) {
+        return newEntity(x, y, shape, E_TYPE_PLAYER);
+    }
+
+    function newBullet(x, y, shape) {
+        return newEntity(x, y, shape, E_TYPE_BULLET);
     }
 
     function cloneShape(shape) {
@@ -86,6 +98,9 @@ GAME.Entity = (function() {
         move : move,
         dist : dist,
         shoot : shoot,
-        newEntity : newEntity
+        newEntity : newEntity,
+        newEnemy : newEnemy,
+        newPlayer : newPlayer,
+        newBullet : newBullet
     }
 })();
