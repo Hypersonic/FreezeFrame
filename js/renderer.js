@@ -9,6 +9,7 @@ GAME.setConsts({
 	C_EN_BULLET : "rgb(100,100,100)",
 	C_FLOOR	: "rgb(255,255,255)",
 	C_WALL : "rgb(0,0,0)",
+  C_PATH : "rgb(100,0,0)",
 });
 
 GAME.setConsts({
@@ -29,6 +30,7 @@ GAME.Renderer = (function() {
 		C_PLAYER = GAME.C_PLAYER,
 		C_PL_BULLET = GAME.C_PL_BULLET,
 		C_ENEMY = GAME.C_ENEMY,
+		C_PATH = GAME.C_PATH,
 		C_EN_BULLET = GAME.C_EN_BULLET,
 		VIEW_WIDTH = GAME.VIEW_WIDTH,
 		VIEW_HEIGHT = GAME.VIEW_HEIGHT,
@@ -75,8 +77,22 @@ GAME.Renderer = (function() {
 		ctx.fillStyle = C_PL_BULLET;
 		for (var i = 0, len = GAME.bullets.length; i < len; i++) {
 			drawEntity(GAME.bullets[i]);
+      if (GAME.bullets[i] === GAME.player_bullet) {
+        drawPath(GAME.player_bullet.path);
+      }
 		}
 	}
+
+  function drawPath(path) {
+    ctx.beginPath();
+    ctx.moveTo(path[0][0], path[0][1]);
+    for (var i = 0; i < path.length; i++) {
+      ctx.lineTo(path[i][0], path[i][1]);
+    }
+    // screw it, we're always drawing the path of hte player's bullet
+    ctx.lineTo(GAME.player_bullet.x, GAME.player_bullet.y);
+    ctx.stroke();
+  }
 
 	function drawEntities() {
 		ctx.fillStyle = C_PLAYER;

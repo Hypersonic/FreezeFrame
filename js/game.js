@@ -126,7 +126,7 @@ GAME.main = function() {
 
     if (GAME.I_CLICK && GAME.frozen && !GAME.hasShot) {
     	GAME.hasShot = true;
-		GAME.Entity.shoot(GAME.player);
+      GAME.player_bullet = GAME.Entity.shoot(GAME.player);
     }
 
     for (var j=0; j<300; j++) {
@@ -134,8 +134,8 @@ GAME.main = function() {
     		GAME.bullets[i].xvel *= 0.99999;
     		GAME.bullets[i].yvel *= 0.99999;
         	if (GAME.Entity.detectCollisions(GAME.bullets[i])) {
-        		GAME.bullets[i].xvel *= 0.9999;
-        		GAME.bullets[i].yvel *= 0.9999;
+        		GAME.bullets[i].xvel *= 0.99999;
+        		GAME.bullets[i].yvel *= 0.99999;
         	}
         	if (GAME.Entity.speedOf(GAME.bullets[i]) < 0.001) {
         		GAME.over = true;

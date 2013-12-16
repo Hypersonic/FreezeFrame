@@ -1,6 +1,6 @@
 GAME.setConsts({
     E_MAXVEL : 0.1,
-    B_MAXVEL : 0.01,
+    B_MAXVEL : 0.1,
 	S_PLAYER : [[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5]],
     S_BULLET : [[0, .5], [-.3, 0.15], [-.3, -.3], [.3, -.3], [.3, 0.15]],
     E_TYPE_ENEMY : 0,
@@ -40,7 +40,9 @@ GAME.Entity = (function() {
     }
 
     function newBullet(x, y, shape) {
-        return newEntity(x, y, shape, GAME.E_TYPE_BULLET);
+        var bullet = newEntity(x, y, shape, GAME.E_TYPE_BULLET);
+        bullet.path.push([bullet.x, bullet.y]);
+        return bullet;
     }
 
     function cloneShape(shape) {
@@ -140,6 +142,10 @@ GAME.Entity = (function() {
 				wallCollided |= detectWallCollision(ent, tilex+j, tiley+i);
 			}
 		}
+
+    if (wallCollided) {
+      ent.path.push([ent.x, ent.y]);
+    }
 
 		return wallCollided;
     }
