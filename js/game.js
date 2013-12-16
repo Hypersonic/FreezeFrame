@@ -197,4 +197,5 @@ GAME.end = function() {
 	ctx.font = "40px Arial";
 	ctx.fillText("Score:", canvas.width/2 - 70, canvas.height/2 - 40);
 	ctx.fillText(GAME.kills, canvas.width/2 - 25, canvas.height/2+10);
+  ctx.fillText("Refresh to try again!", 70, canvas.height/2 + 60);
 }
