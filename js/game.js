@@ -195,6 +195,6 @@ GAME.end = function() {
 	             GAME.TILE_SCALE, canvas.height);
 
 	ctx.font = "40px Arial";
-	ctx.fillText("Score", canvas.width/2 - 25, canvas.height/2);
-	ctx.fillText(GAME.kills, canvas.width/2 - 25, canvas.height/2 + 50);
+	ctx.fillText("Score:", canvas.width/2 - 70, canvas.height/2 - 40);
+	ctx.fillText(GAME.kills, canvas.width/2 - 25, canvas.height/2+10);
 }
