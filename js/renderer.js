@@ -79,11 +79,13 @@ GAME.Renderer = (function() {
 			drawEntity(GAME.bullets[i]);
       if (GAME.bullets[i] === GAME.player_bullet) {
         drawPath(GAME.player_bullet.path);
+        ctx.fillStyle = C_PL_BULLET;
       }
 		}
 	}
 
   function drawPath(path) {
+    ctx.fillStyle = C_PATH;
     ctx.beginPath();
     ctx.moveTo(path[0][0], path[0][1]);
     for (var i = 0; i < path.length; i++) {

@@ -135,7 +135,7 @@ GAME.main = function() {
     		GAME.bullets[i].yvel *= 0.99999;
         	if (GAME.Entity.detectCollisions(GAME.bullets[i])) {
         		GAME.bullets[i].xvel *= 0.99999;
-        		GAME.bullets[i].yvel *= 0.99999;
+        		GAME.bullets[i].yvel *= 0.99997;
         	}
         	if (GAME.Entity.speedOf(GAME.bullets[i]) < 0.001) {
         		GAME.over = true;
